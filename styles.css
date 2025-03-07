@@ -1,0 +1,213 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff5f7;
+    text-align: center;
+}
+
+header {
+    background-color: #ff7eb3;
+    color: white;
+    padding: 20px;
+}
+
+nav {
+    background-color: #ff4d6d;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+section {
+    padding: 50px 20px;
+}
+
+#gallery {
+    background-color: #ffe5ec;
+}
+
+.gallery-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.gallery-container img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.gallery-container img:hover {
+    transform: scale(1.1);
+}
+
+#services {
+    background-color: #fff5f7;
+    padding: 50px 20px;
+    text-align: center;
+/*    text-align: left; /* 讓內容靠左對齊 */*/
+    max-width: 900px; /* 設定一個最大寬度，避免文字太過分散 */
+    margin: 0 auto; /* 讓整個區塊仍保持置中，但內容靠左 */
+}
+
+#services h2 {
+    color: #d6336c;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+#services h3 {
+    color: #d6336c;
+    margin-top: 20px;
+    font-size: 1.8rem;
+}
+
+
+.service-list, .reasons-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.service-list li, .reasons-list li {
+    font-size: 1.2rem;
+    margin: 10px 0;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 讓列表內容水平置中 */
+    gap: 10px; /* 讓 icon 與文字有適當間距 */
+}
+
+.service-list li strong, .reasons-list li strong {
+    color: #d6336c;
+}
+
+.steps-container {
+    display: flex;
+    flex-direction: column; /* 讓步驟內容垂直排列 */
+    justify-content: center;
+    gap: 20px;
+    align-items: center; 
+    margin-top: 20px;
+}
+
+.step {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    width: 80%; /* 控制步驟區塊的寬度 */
+    max-width: 500px; /* 避免步驟區塊太大 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center; /* 讓步驟內的內容置中 */
+    transition: transform 0.3s ease;
+}
+
+.step h4 {
+    color: #d6336c;
+    font-size: 1.4rem;
+}
+
+.step p {
+    font-size: 1rem;
+    color: #444;
+}
+
+.step:hover {
+    transform: scale(1.05);
+}
+
+
+
+#cases {
+    background-color: #fff0f6; /* 淡粉色背景 */
+    padding: 50px 20px;
+}
+
+.case-gallery {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.case {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.case img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.case p {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.case:hover {
+    transform: scale(1.05); /* 滑鼠懸停時放大 */
+}
+
+
+footer {
+    background-color: #ff4d6d;
+    color: white;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+
+#contact {
+    background-color: #ffe5ec; /* 粉色背景 */
+    padding: 40px 20px;
+    text-align: center;
+}
+
+#contact p {
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
+#contact i {
+    color: #ff4d6d;
+    margin-right: 8px;
+    font-size: 1.4rem;
+}
+
+
