@@ -11,10 +11,10 @@
     <meta property="og:title" content="代客送花 - 花語傳情">
     <meta property="og:description" content="提供代客送花服務，讓您的祝福準時送達。適用於生日、告白、紀念日等場合。">
     <meta property="og:image" content="https://你的網站.com/images/preview.jpg">
-    <meta property="og:url" content="https://你的網站.com">
+    <meta property="og:url" content="https://flower-shop-vn.pages.dev/">
     <meta property="og:type" content="website">
 
-    <link rel="canonical" href="https://你的網站.com">
+    <link rel="canonical" href="https://flower-shop-vn.pages.dev/">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
@@ -99,11 +99,19 @@
     <section id="gallery">
         <h2>花束展示</h2>
         <div class="gallery-container">
-            <img src="images/IMG_4860.JPG" alt="花束 1">
-            <img src="images/IMG_8387.JPG" alt="花束 2">
-            <img src="images/IMG_8398.JPG" alt="花束 3">
+            <img src="images/IMG_4860.JPG" alt="花束 1" class="zoomable">
+            <img src="images/IMG_8387.JPG" alt="花束 2" class="zoomable">
+            <img src="images/IMG_8398.JPG" alt="花束 3" class="zoomable">
         </div>
     </section>
+
+
+
+    <!-- 放大圖片的彈出視窗 -->
+    <div id="lightbox" class="lightbox">
+        <span class="close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+    </div>
 
     <section id="contact">
     <h2>聯絡我們</h2>
@@ -118,4 +126,5 @@
         <p>© 2024 代客送花服務. All Rights Reserved.</p>
     </footer>
 </body>
+<script src="script.js"></script>
 </html>
