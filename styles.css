@@ -42,6 +42,120 @@ section {
     padding: 50px 20px;
 }
 
+/* 隱藏行動版選單，電腦版顯示 */
+.nav-buttons {
+    display: flex;
+    gap: 10px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+/* 行動版導航按鈕（隱藏） */
+/* 修正 ☰ 漢堡選單的位置 */
+.menu-toggle {
+    display: block; /* 預設在桌機上隱藏 */
+    position: fixed; /* 固定在畫面右上角 */
+    top: 15px; /* 往下移動，避免與標題重疊 */
+    right: 15px; /* 往右對齊 */
+    font-size: 2rem; /* 調整圖示大小 */
+    color: white;
+    cursor: pointer;
+    z-index: 100; /* 確保選單在最上層 */
+    background: rgba(0, 0, 0, 0.5); /* 增加背景，讓圖示更清楚 */
+    padding: 10px;
+    border-radius: 5px; /* 圓角設計，讓按鈕更美觀 */
+}
+
+/* ☰ 漢堡選單樣式 */
+.menu-toggle {
+    display: block; /* 讓桌機 & 手機都能看到 ☰ */
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* 隱藏選單，點擊 ☰ 後才顯示 */
+.nav-buttons {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: 60px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    border-radius: 10px;
+    width: 220px;
+    text-align: center;
+}
+
+/* 點擊 ☰ 後，顯示選單 */
+.nav-buttons.active {
+    display: flex;
+}
+
+/* 選單內按鈕樣式 */
+.nav-buttons a {
+    display: block;
+    padding: 15px;
+    font-size: 1rem;
+    color: white;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.nav-buttons a:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* 行動版專用的選單樣式 */
+@media (max-width: 768px) {
+    /* 行動版顯示漢堡按鈕 */
+    .menu-toggle {
+        display: block;
+    }
+
+    /* 隱藏導覽按鈕，當展開時才顯示 */
+    .nav-buttons {
+        display: none;
+        flex-direction: column;
+        position: fixed;
+        top: 60px; /* 下移，避免與標題重疊 */
+        right: 10px;
+        background: rgba(0, 0, 0, 0.8);
+        padding: 10px;
+        border-radius: 10px;
+        width: 220px;
+        text-align: center;
+    }
+
+    /* 導覽按鈕展開狀態 */
+    .nav-buttons.active {
+        display: flex;
+    }
+
+    /* 調整按鈕大小，讓點擊範圍更大 */
+    .nav-buttons a {
+        display: block;
+        padding: 12px;
+        font-size: 1rem;
+        color: white;
+        text-align: center;
+        transition: background 0.3s ease;
+    }
+
+    .nav-buttons a:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+}
+
 #gallery {
     background-color: #ffe5ec;
 }
