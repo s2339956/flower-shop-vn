@@ -204,10 +204,19 @@ footer {
     margin: 10px 0;
 }
 
+
 #contact i {
-    color: #ff4d6d;
+    color: #d6336c; /* 設定圖示顏色 */
     margin-right: 8px;
     font-size: 1.4rem;
 }
 
+#contact a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+#contact a:hover {
+    text-decoration: underline;
+}
 
