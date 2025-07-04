@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // ---------------------- Lightbox ----------------------
     const images = document.querySelectorAll(".zoomable");
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = document.getElementById("lightbox-img");
@@ -21,9 +22,8 @@ document.addEventListener("DOMContentLoaded", function () {
             lightbox.style.display = "none";
         }
     });
-});
 
-document.addEventListener("DOMContentLoaded", function () {
+    // ---------------------- Menu Toggle ----------------------
     const menuToggle = document.getElementById("mobile-menu");
     const navButtons = document.querySelector(".nav-buttons");
     const navLinks = document.querySelectorAll(".nav-buttons a"); // 取得所有選單按鈕
