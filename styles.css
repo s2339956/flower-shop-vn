@@ -214,7 +214,7 @@ section {
     background-color: #fff5f7;
     padding: 50px 20px;
     text-align: center;
-/*    text-align: left; /* 讓內容靠左對齊 */*/
+/* text-align: left; 讓內容靠左對齊 */
     max-width: 900px; /* 設定一個最大寬度，避免文字太過分散 */
     margin: 0 auto; /* 讓整個區塊仍保持置中，但內容靠左 */
 }
