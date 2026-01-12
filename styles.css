@@ -194,7 +194,7 @@ section {
     background-color: #fff5f7;
     padding: 50px 20px;
     text-align: center;
-/*    text-align: left; /* 讓內容靠左對齊 */*/
+    /* text-align: left; 讓內容靠左對齊 */
     max-width: 900px; /* 設定一個最大寬度，避免文字太過分散 */
     margin: 0 auto; /* 讓整個區塊仍保持置中，但內容靠左 */
 }
@@ -343,5 +343,74 @@ footer {
 
 #contact a:hover {
     text-decoration: underline;
+}
+
+
+/* 懸浮聯絡按鈕 (Floating Action Button) */
+.floating-contact {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 99999; /* 提高層級，確保在最上層 */
+    pointer-events: auto; /* 確保可以被點擊 */
+}
+
+.fab-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-size: 1.5rem;
+}
+
+.fab-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* LINE 按鈕樣式 */
+.fab-btn.line {
+    background-color: #00B900;
+}
+
+/* Zalo 按鈕樣式 */
+.fab-btn.zalo {
+    background-color: #0068FF;
+    font-size: 0.9rem; /* Zalo 文字稍微縮小 */
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+.zalo-text {
+    display: inline-block;
+    padding-top: 2px; /* 微調垂直置中 */
+}
+
+/* 手機版調整位置，避免擋到內容 */
+@media (max-width: 768px) {
+    .floating-contact {
+        bottom: 15px;
+        right: 15px;
+        gap: 12px;
+    }
+    
+    .fab-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+    }
+    
+    .fab-btn.zalo {
+        font-size: 0.8rem;
+    }
 }
 
