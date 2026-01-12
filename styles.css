@@ -16,23 +16,24 @@ header {
     padding: 20px;
 }
 
-nav {
+/* 導覽列共用樣式 */
+.site-nav {
     background-color: #ff4d6d;
     padding: 10px 0;
 }
 
-nav ul {
+.site-nav ul {
     list-style: none;
     display: flex;
     justify-content: center;
     gap: 20px;
 }
 
-nav ul li {
+.site-nav ul li {
     display: inline;
 }
 
-nav ul li a {
+.site-nav ul li a {
     text-decoration: none;
     color: white;
     font-weight: bold;
@@ -42,14 +43,8 @@ section {
     padding: 50px 20px;
 }
 
-/* 隱藏行動版選單，電腦版顯示 */
-.nav-buttons {
-    display: flex;
-    gap: 10px;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-}
+/* 隱藏行動版選單，電腦版顯示（已由 .site-nav 統一控制） */
+
 
 /* 行動版導航按鈕（隱藏） */
 /* 修正 ☰ 漢堡選單的位置 */
@@ -80,40 +75,16 @@ section {
     background: rgba(0, 0, 0, 0.5);
     padding: 10px;
     border-radius: 5px;
+    border: none;
+    outline: none; /* 建議保留 focus 狀態，但在這裡先移除默認 outline，下面補上 focus-visible */
 }
 
-/* 隱藏選單，點擊 ☰ 後才顯示 */
-.nav-buttons {
-    display: none;
-    flex-direction: column;
-    position: fixed;
-    top: 60px;
-    right: 10px;
-    background: rgba(0, 0, 0, 0.8);
-    padding: 10px;
-    border-radius: 10px;
-    width: 220px;
-    text-align: center;
+/* 鍵盤操作時的焦點樣式 (A11y) */
+.menu-toggle:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 2px;
 }
 
-/* 點擊 ☰ 後，顯示選單 */
-.nav-buttons.active {
-    display: flex;
-}
-
-/* 選單內按鈕樣式 */
-.nav-buttons a {
-    display: block;
-    padding: 15px;
-    font-size: 1rem;
-    color: white;
-    text-decoration: none;
-    transition: background 0.3s ease;
-}
-
-.nav-buttons a:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
 
 /* 行動版專用的選單樣式 */
 @media (max-width: 768px) {
@@ -122,10 +93,9 @@ section {
         display: block;
     }
 
-    /* 隱藏導覽按鈕，當展開時才顯示 */
-    .nav-buttons {
-        display: none;
-        flex-direction: column;
+    /* 行動版將導覽改為展開式 */
+    .site-nav {
+        display: none; /* 預設隱藏 */
         position: fixed;
         top: 60px; /* 下移，避免與標題重疊 */
         right: 10px;
@@ -134,15 +104,25 @@ section {
         border-radius: 10px;
         width: 220px;
         text-align: center;
+        z-index: 99;
     }
 
-    /* 導覽按鈕展開狀態 */
-    .nav-buttons.active {
-        display: flex;
+    /* 導覽按鈕展開狀態 (.active 由 JS 控制) */
+    .site-nav.active {
+        display: block;
+    }
+
+    .site-nav ul {
+        flex-direction: column; /* 垂直排列 */
+        gap: 0;
+    }
+    
+    .site-nav ul li {
+        display: block;
     }
 
     /* 調整按鈕大小，讓點擊範圍更大 */
-    .nav-buttons a {
+    .site-nav ul li a {
         display: block;
         padding: 12px;
         font-size: 1rem;
@@ -151,7 +131,7 @@ section {
         transition: background 0.3s ease;
     }
 
-    .nav-buttons a:hover {
+    .site-nav ul li a:hover {
         background: rgba(255, 255, 255, 0.2);
     }
 }
