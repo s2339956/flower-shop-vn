@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
- xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 
- http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator https://sitemap-generator.org/ -->
-  <url>
-   <loc>https://flower-shop-vn.pages.dev/</loc>
-   <lastmod>2025-03-10T05:29:56.859Z</lastmod>
-   <changefreq>always</changefreq>
-   <priority>1.00</priority>
- </url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://flower-shop-vn.pages.dev/</loc><lastmod>2026-04-22</lastmod></url>
+  <url><loc>https://flower-shop-vn.pages.dev/services/</loc><lastmod>2026-04-22</lastmod></url>
+  <url><loc>https://flower-shop-vn.pages.dev/services/birthday-flowers-vietnam/</loc><lastmod>2026-04-22</lastmod></url>
+  <url><loc>https://flower-shop-vn.pages.dev/services/wedding-flowers-vietnam/</loc><lastmod>2026-04-22</lastmod></url>
+  <url><loc>https://flower-shop-vn.pages.dev/services/funeral-flowers-vietnam/</loc><lastmod>2026-04-22</lastmod></url>
+  <url><loc>https://flower-shop-vn.pages.dev/services/opening-stand-vietnam/</loc><lastmod>2026-04-22</lastmod></url>
+  <url><loc>https://flower-shop-vn.pages.dev/cities/</loc><lastmod>2026-04-22</lastmod></url>
+  <url><loc>https://flower-shop-vn.pages.dev/cities/ho-chi-minh/</loc><lastmod>2026-04-22</lastmod></url>
+  <url><loc>https://flower-shop-vn.pages.dev/cities/hanoi/</loc><lastmod>2026-04-22</lastmod></url>
+  <url><loc>https://flower-shop-vn.pages.dev/cities/da-nang/</loc><lastmod>2026-04-22</lastmod></url>
+  <url><loc>https://flower-shop-vn.pages.dev/pricing/</loc><lastmod>2026-04-22</lastmod></url>
+  <url><loc>https://flower-shop-vn.pages.dev/faq/</loc><lastmod>2026-04-22</lastmod></url>
+  <url><loc>https://flower-shop-vn.pages.dev/blog/</loc><lastmod>2026-04-22</lastmod></url>
+  <url><loc>https://flower-shop-vn.pages.dev/blog/vietnam-birthday-flower-guide/</loc><lastmod>2026-04-22</lastmod></url>
+  <url><loc>https://flower-shop-vn.pages.dev/blog/vietnam-funeral-flower-ordering/</loc><lastmod>2026-04-22</lastmod></url>
+  <url><loc>https://flower-shop-vn.pages.dev/blog/ho-chi-minh-same-day-flower-rules/</loc><lastmod>2026-04-22</lastmod></url>
+  <url><loc>https://flower-shop-vn.pages.dev/contact/</loc><lastmod>2026-04-22</lastmod></url>
 </urlset>

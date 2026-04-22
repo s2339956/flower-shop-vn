@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://flower-shop-vn.pages.dev/sitemap.xml
