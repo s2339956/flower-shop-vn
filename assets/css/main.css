@@ -377,6 +377,7 @@ main {
 .city-card h3,
 .contact-card h3,
 .testimonial h3,
+.info-panel h2,
 .info-panel h3 {
   margin-top: 0;
   margin-bottom: 0.7rem;
@@ -820,6 +821,8 @@ main {
 
 .floating-line {
   background: #06c755;
+  color: #063b1b;
+  font-weight: 800;
 }
 
 .floating-zalo {

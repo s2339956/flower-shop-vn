@@ -266,7 +266,7 @@ function renderBlogIndex(posts) {
     schema,
     body: `  <main>
     <section class="page-hero"><div class="container"><div class="page-hero-panel"><div class="breadcrumbs"><a href="/">首頁</a><span>/</span><span>Blog</span></div><div class="page-hero-copy"><span class="eyebrow">Content Hub</span><h1>在這裡可以先了解常見送花流程與注意事項</h1><p>如果你還在確認怎麼下單、需要準備哪些資訊，或想先了解不同情境的送花安排，可以先從這裡閱讀相關說明。</p></div></div></div></section>
-    <section class="section-tight"><div class="container article-grid">${cards}</div></section>
+    <section class="section-tight"><h2 class="sr-only">越南送花文章列表</h2><div class="container article-grid">${cards}</div></section>
   </main>`,
   });
 }
