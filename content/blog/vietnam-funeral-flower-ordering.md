@@ -9,6 +9,7 @@ heroImage: /images/IMG_8931.JPG
 heroAlt: 越南喪禮花圈代訂流程
 imageWidth: 720
 imageHeight: 1280
+hideCardImage: true
 ---
 
 ## 第一件事：先確認場地和時間

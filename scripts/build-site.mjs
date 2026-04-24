@@ -246,7 +246,16 @@ function renderBlogIndex(posts) {
     ],
   };
 
-  const cards = posts.map((post) => `<article class="article-card"><img src="${escapeHtml(post.heroImage)}" alt="${escapeHtml(post.heroAlt || post.title)}" width="${escapeHtml(post.imageWidth || 1200)}" height="${escapeHtml(post.imageHeight || 630)}" loading="lazy" decoding="async"><h3>${escapeHtml(post.title)}</h3><p>${escapeHtml(post.description)}</p><a href="${post.url}">閱讀文章</a></article>`).join("");
+  const cards = posts.map((post) => {
+    const imageSrc = post.cardImage || post.heroImage;
+    const imageAlt = post.cardAlt || post.heroAlt || post.title;
+    const imageWidth = post.cardImageWidth || post.imageWidth || 1200;
+    const imageHeight = post.cardImageHeight || post.imageHeight || 630;
+    const image = post.hideCardImage
+      ? ""
+      : `<img src="${escapeHtml(imageSrc)}" alt="${escapeHtml(imageAlt)}" width="${escapeHtml(imageWidth)}" height="${escapeHtml(imageHeight)}" loading="lazy" decoding="async">`;
+    return `<article class="article-card">${image}<h3>${escapeHtml(post.title)}</h3><p>${escapeHtml(post.description)}</p><a href="${post.url}">閱讀文章</a></article>`;
+  }).join("");
 
   return layout({
     title,

@@ -9,6 +9,10 @@ heroImage: /images/IMG_8454.jpg
 heroAlt: 越南生日送花流程指南
 imageWidth: 1179
 imageHeight: 2556
+cardImage: /images/IMG_8931.JPG
+cardAlt: 越南生日花禮與氣球搭配案例
+cardImageWidth: 720
+cardImageHeight: 1280
 ---
 
 ## 步驟 1：先整理收件與時間資訊
