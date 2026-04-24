@@ -453,7 +453,8 @@ main {
   box-shadow: var(--shadow-soft);
 }
 
-.case-card > a {
+.case-card > a,
+.case-media-frame {
   display: block;
   aspect-ratio: 4 / 5;
   overflow: hidden;
@@ -462,11 +463,20 @@ main {
   background: rgba(255, 250, 253, 0.92);
 }
 
-.case-card img {
+.case-card img,
+.case-card video {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+}
+
+.case-card img {
   transition: transform 0.35s ease;
+}
+
+.case-card video {
+  background: #140911;
 }
 
 .case-card:hover img {
