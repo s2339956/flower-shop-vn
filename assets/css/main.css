@@ -585,6 +585,27 @@ main {
   margin-top: 0;
 }
 
+.article-content h2,
+.article-content h3 {
+  margin-top: 2rem;
+}
+
+.article-content h2:first-child,
+.article-content h3:first-child {
+  margin-top: 0;
+}
+
+.article-content figure {
+  margin: 2rem 0;
+}
+
+.article-content img {
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+  box-shadow: var(--shadow-soft);
+}
+
 .sticky-panel {
   position: sticky;
   top: 100px;
