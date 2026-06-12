@@ -229,6 +229,7 @@ function layout({ title, description, canonical, ogImage, ogType = "article", na
   <meta name="robots" content="index,follow">
   <meta name="author" content="Flower Shop VN">
   <link rel="canonical" href="${escapeHtml(canonical)}">
+  <meta property="og:site_name" content="越南花禮代訂所">
   <meta property="og:title" content="${escapeHtml(title.replace(" | Flower Shop VN", ""))}">
   <meta property="og:description" content="${escapeHtml(description)}">
   <meta property="og:image" content="${escapeHtml(absoluteUrl(ogImage))}">
