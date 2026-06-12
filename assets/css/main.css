@@ -493,6 +493,13 @@ main > .section-tight:first-child {
   box-shadow: var(--shadow);
 }
 
+.hero-photo picture,
+.gallery-card picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .hero-photo img {
   width: 100%;
   height: 100%;

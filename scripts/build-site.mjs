@@ -1,4 +1,5 @@
 import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
+import { readFileSync } from "node:fs";
 import path from "node:path";
 
 const SITE_URL = "https://flower-shop-vn.pages.dev";
@@ -41,6 +42,67 @@ function absoluteUrl(url = "") {
   return `${SITE_URL}${url.startsWith("/") ? url : `/${url}`}`;
 }
 
+function getLocalImagePath(src = "") {
+  if (!src.startsWith("/") || src.startsWith("//")) return "";
+  const [pathname] = src.split(/[?#]/);
+  return path.join(ROOT, pathname.replace(/^\/+/, ""));
+}
+
+function readPngDimensions(buffer) {
+  const pngSignature = "89504e470d0a1a0a";
+  if (buffer.length < 24 || buffer.subarray(0, 8).toString("hex") !== pngSignature) return null;
+  return {
+    width: buffer.readUInt32BE(16),
+    height: buffer.readUInt32BE(20),
+  };
+}
+
+function readJpegDimensions(buffer) {
+  if (buffer.length < 4 || buffer[0] !== 0xff || buffer[1] !== 0xd8) return null;
+
+  let offset = 2;
+  while (offset < buffer.length) {
+    if (buffer[offset] !== 0xff) {
+      offset += 1;
+      continue;
+    }
+
+    const marker = buffer[offset + 1];
+    const length = buffer.readUInt16BE(offset + 2);
+    const isStartOfFrame = [
+      0xc0, 0xc1, 0xc2, 0xc3,
+      0xc5, 0xc6, 0xc7,
+      0xc9, 0xca, 0xcb,
+      0xcd, 0xce, 0xcf,
+    ].includes(marker);
+
+    if (isStartOfFrame) {
+      return {
+        height: buffer.readUInt16BE(offset + 5),
+        width: buffer.readUInt16BE(offset + 7),
+      };
+    }
+
+    if (!length) break;
+    offset += 2 + length;
+  }
+
+  return null;
+}
+
+function getImageDimensions(src = "") {
+  const filePath = getLocalImagePath(src);
+  if (!filePath) return null;
+
+  try {
+    const buffer = readFileSync(filePath);
+    return readPngDimensions(buffer) || readJpegDimensions(buffer);
+  } catch {
+    // 本機找不到圖檔時仍保留原輸出，避免單篇文章阻斷整站 build。
+    return null;
+  }
+}
+
 function parseFrontMatter(source) {
   const match = source.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
   if (!match) {
@@ -71,7 +133,11 @@ function parseFrontMatter(source) {
 function renderInline(markdown = "") {
   let html = escapeHtml(markdown);
   html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_match, alt, src) => {
-    return `<img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async">`;
+    const dimensions = getImageDimensions(src);
+    const sizeAttributes = dimensions
+      ? ` width="${dimensions.width}" height="${dimensions.height}"`
+      : "";
+    return `<img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}"${sizeAttributes} loading="lazy" decoding="async">`;
   });
   html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_match, text, href) => {
     return `<a href="${escapeHtml(href)}">${escapeHtml(text)}</a>`;
@@ -267,6 +333,7 @@ function renderBlogIndex(posts) {
     body: `  <main>
     <section class="page-hero"><div class="container"><div class="page-hero-panel"><div class="breadcrumbs"><a href="/">首頁</a><span>/</span><span>Blog</span></div><div class="page-hero-copy"><span class="eyebrow">Content Hub</span><h1>在這裡可以先了解常見送花流程與注意事項</h1><p>如果你還在確認怎麼下單、需要準備哪些資訊，或想先了解不同情境的送花安排，可以先從這裡閱讀相關說明。</p></div></div></div></section>
     <section class="section-tight"><h2 class="sr-only">越南送花文章列表</h2><div class="container article-grid">${cards}</div></section>
+    <section class="section-tight"><div class="container"><div class="cta-band"><h2>看完文章後，可以回到服務頁確認實際下單方式</h2><p>如果你已經知道用途，可先看<a href="/services/">越南送花服務總覽</a>；若收件地點在胡志明市，建議查看<a href="/cities/ho-chi-minh/">胡志明市送花指南</a>；需求已經明確時，直接到<a href="/contact/">聯絡頁</a>提供城市、日期與預算。</p></div></div></section>
   </main>`,
   });
 }
