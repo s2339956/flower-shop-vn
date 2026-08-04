@@ -5,6 +5,7 @@ import path from "node:path";
 const ROOT = process.cwd();
 const SITE_URL = "https://flower-shop-vn.com";
 const SEO_RELEASE_DATE = "2026-08-04";
+const SHOPEE_GUIDE_URL = "https://shopee.tw/product/3151001/29700986020/";
 
 // 只檢查實際部署的 index.html；備份與驗證檔不屬於內容頁。
 async function findPages(directory) {
@@ -36,6 +37,7 @@ const pages = await findPages(ROOT);
 const titles = new Set();
 const descriptions = new Set();
 const canonicals = new Set();
+const internalLinks = new Set();
 
 for (const filePath of pages) {
   const html = await readFile(filePath, "utf8");
@@ -43,6 +45,7 @@ for (const filePath of pages) {
   const expectedUrl = `${SITE_URL}${routeFor(filePath)}`;
 
   assert.doesNotMatch(html, /flower-shop-vn\.pages\.dev/, `${relativePath} 不得殘留舊 pages.dev 網域`);
+  assert.doesNotMatch(html, /fonts\.(?:googleapis|gstatic)\.com/, `${relativePath} 不得載入阻塞首屏的 Google Fonts`);
   assert.match(html, /<html lang="zh-Hant">/, `${relativePath} 的語系必須是 zh-Hant`);
   const title = one(html, /<title>([^<]+)<\/title>/g, "title", relativePath);
   const description = one(html, /<meta name="description" content="([^"]+)">/g, "description", relativePath);
@@ -68,6 +71,21 @@ for (const filePath of pages) {
   assert.equal((html.match(/<h1\b/g) || []).length, 1, `${relativePath} 必須恰好有一個 H1`);
   assert.match(html, /<meta name="robots" content="index,follow,max-image-preview:large">/, `${relativePath} 缺少索引設定`);
   assert.equal(twitterCard, "summary_large_image", `${relativePath} 的 Twitter Card 類型不正確`);
+  assert.equal((html.match(/<footer class="site-footer">/g) || []).length, 1, `${relativePath} 必須恰好有一個共用 footer`);
+  assert.equal((html.match(/<nav class="floating-contact"/g) || []).length, 1, `${relativePath} 必須恰好有一個快速聯絡導覽`);
+  assert.match(html, new RegExp(`href="${SHOPEE_GUIDE_URL.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"`), `${relativePath} 必須保留可見的 Shopee 指引連結`);
+
+  // 每個站內 href 都必須指向實際存在的頁面或檔案，避免共用版面製造全站死鏈。
+  for (const match of html.matchAll(/href="([^"]+)"/g)) {
+    const href = match[1];
+    if (!href.startsWith("/") || href.startsWith("//")) continue;
+    const pathname = new URL(href, SITE_URL).pathname;
+    const target = pathname.endsWith("/")
+      ? path.join(ROOT, pathname.slice(1), "index.html")
+      : path.join(ROOT, pathname.slice(1));
+    await access(target);
+    internalLinks.add(pathname);
+  }
 
   const schemas = [...html.matchAll(/<script type="application\/ld\+json">\s*([\s\S]*?)\s*<\/script>/g)];
   assert.ok(schemas.length > 0, `${relativePath} 缺少 JSON-LD`);
@@ -79,6 +97,8 @@ for (const filePath of pages) {
   descriptions.add(description);
   canonicals.add(canonical);
 }
+
+assert.ok(canonicals.has(`${SITE_URL}/ordering-policy/`), "必須發布訂購、變更與個資說明頁");
 
 // sitemap 必須完整覆蓋所有可索引頁，不能混入舊網域或不存在的頁面。
 const sitemap = await readFile(path.join(ROOT, "sitemap.xml"), "utf8");
@@ -97,4 +117,17 @@ const robots = await readFile(path.join(ROOT, "robots.txt"), "utf8");
 assert.match(robots, new RegExp(`Sitemap: ${SITE_URL.replaceAll(".", "\\.")}\\/sitemap\\.xml`), "robots.txt 必須指向主網域 sitemap");
 assert.doesNotMatch(`${[...canonicals].join("\n")}\n${sitemap}\n${robots}`, /flower-shop-vn\.pages\.dev/, "正式 SEO 輸出不得殘留舊 pages.dev 網域");
 
-console.log(`SEO 檢查通過：${pages.length} 個頁面，canonical、metadata、JSON-LD、robots 與 sitemap 一致。`);
+// Cloudflare Web Analytics 需同時允許載入 beacon 與送出分析請求。
+const headers = await readFile(path.join(ROOT, "_headers"), "utf8");
+assert.match(headers, /script-src[^\n]*https:\/\/static\.cloudflareinsights\.com/, "CSP script-src 必須允許 Cloudflare Web Analytics");
+assert.match(headers, /connect-src[^\n]*https:\/\/cloudflareinsights\.com/, "CSP connect-src 必須允許 Cloudflare Web Analytics");
+assert.doesNotMatch(headers, /script-src[^;\n]*'unsafe-inline'/, "CSP script-src 不得允許不必要的 inline JavaScript");
+const assetsPolicy = headers.match(/\/assets\/\*([\s\S]*?)(?=\n\/|\s*$)/)?.[1] || "";
+assert.match(assetsPolicy, /Cache-Control: public, max-age=0, must-revalidate/, "未版本化的 CSS 與 JS 必須每次重新驗證");
+
+// 詢價模板採純前端複製，不收集或傳送顧客資料。
+const contact = await readFile(path.join(ROOT, "contact", "index.html"), "utf8");
+assert.match(contact, /data-copy-inquiry/, "聯絡頁必須提供一鍵複製詢價模板");
+assert.match(contact, /data-inquiry-template/, "聯絡頁必須提供可直接編輯的詢價資料欄位");
+
+console.log(`SEO 檢查通過：${pages.length} 個頁面、${internalLinks.size} 個站內連結目標，metadata、JSON-LD、robots 與 sitemap 一致。`);

@@ -20,8 +20,8 @@
   --radius-md: 28px;
   --radius-lg: 42px;
   --container: 1180px;
-  --font-display: "Cormorant Garamond", "Noto Serif TC", serif;
-  --font-body: "Manrope", "Noto Sans TC", sans-serif;
+  --font-display: Georgia, "Times New Roman", "PingFang TC", "Microsoft JhengHei", serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
   --ease-out: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
@@ -66,6 +66,14 @@ a {
   color: inherit;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.18em;
+}
+
+/* 鍵盤使用者必須能清楚看見目前焦點。 */
+a:focus-visible,
+button:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--sage-deep);
+  outline-offset: 4px;
 }
 
 main {
@@ -286,10 +294,13 @@ main > .section-tight:first-child {
   gap: 0.75rem;
   min-height: 3rem;
   padding: 0.62rem 0.62rem 0.62rem 1.35rem;
+  border: 0;
   border-radius: 999px;
   font-weight: 800;
+  font-family: inherit;
   line-height: 1;
   text-decoration: none;
+  cursor: pointer;
   transition:
     transform 650ms var(--ease-out),
     box-shadow 650ms var(--ease-out),
@@ -326,7 +337,9 @@ main > .section-tight:first-child {
   box-shadow: 0 18px 38px rgba(39, 19, 29, 0.18);
 }
 
-.site-nav .nav-cta {
+.site-nav .nav-cta,
+.site-nav .nav-cta:hover,
+.site-nav .nav-cta[aria-current="page"] {
   color: #fff;
 }
 
@@ -1107,6 +1120,31 @@ main > .section-tight:first-child {
   text-decoration: none;
 }
 
+.inquiry-template {
+  display: grid;
+  gap: 1rem;
+}
+
+.inquiry-template textarea {
+  width: 100%;
+  min-height: 19rem;
+  padding: 1rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  background: var(--surface-strong);
+  font: inherit;
+  line-height: 1.7;
+  resize: vertical;
+}
+
+.copy-status {
+  min-height: 1.75rem;
+  margin: 0;
+  color: var(--sage-deep);
+  font-weight: 700;
+}
+
 .updated-at {
   margin-top: 1rem;
   color: var(--muted);
@@ -1190,7 +1228,8 @@ main > .section-tight:first-child {
 }
 
 .floating-line {
-  background: #06c755;
+  /* 深綠底讓白字達到 WCAG AA 對比，不改變 LINE 的辨識語意。 */
+  background: #087a3f;
 }
 
 .floating-zalo {

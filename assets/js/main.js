@@ -37,6 +37,28 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  const inquiryTemplate = document.querySelector("[data-inquiry-template]");
+  const copyInquiry = document.querySelector("[data-copy-inquiry]");
+  const copyStatus = document.querySelector("[data-copy-status]");
+
+  // 詢價內容只在瀏覽器內複製，不會由網站收集或傳送。
+  if (inquiryTemplate && copyInquiry && copyStatus) {
+    copyInquiry.addEventListener("click", async () => {
+      try {
+        if (navigator.clipboard?.writeText && window.isSecureContext) {
+          await navigator.clipboard.writeText(inquiryTemplate.value);
+        } else {
+          inquiryTemplate.focus();
+          inquiryTemplate.select();
+          if (!document.execCommand("copy")) throw new Error("瀏覽器拒絕複製");
+        }
+        copyStatus.textContent = "已複製詢價內容，可直接貼到 LINE 或 Zalo。";
+      } catch {
+        copyStatus.textContent = "無法自動複製，請選取上方文字後手動複製。";
+      }
+    });
+  }
+
   // 進場動畫：使用 IntersectionObserver，只操作 opacity 與 transform，避免捲動時持續 reflow。
   const revealTargets = document.querySelectorAll(
     [
