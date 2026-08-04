@@ -614,6 +614,30 @@ main > .section-tight:first-child {
   max-width: 760px;
 }
 
+/* 404 使用既有內頁版型，只補足置中與辨識所需樣式。 */
+.not-found-page {
+  min-height: 78dvh;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.not-found-page .page-hero-copy {
+  margin: 0 auto;
+}
+
+.not-found-code {
+  margin: 0;
+  color: var(--sage);
+  font-size: clamp(5rem, 16vw, 10rem);
+  font-weight: 900;
+  line-height: 0.9;
+}
+
+.not-found-page .button-row {
+  justify-content: center;
+}
+
 .breadcrumbs {
   display: flex;
   flex-wrap: wrap;
@@ -1190,6 +1214,90 @@ main > .section-tight:first-child {
   gap: 0.5rem;
 }
 
+.analytics-settings-button {
+  display: block;
+  width: fit-content;
+  padding: 0;
+  border: 0;
+  color: var(--muted);
+  background: transparent;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  cursor: pointer;
+}
+
+.analytics-settings-button:hover {
+  color: var(--ink);
+}
+
+/* 分析偏好固定在畫面下方，未同意前不會載入 Google 標籤。 */
+.analytics-consent {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 40;
+  display: grid;
+  width: min(calc(100% - 2rem), 760px);
+  margin: 0 auto;
+  padding: 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  border-radius: var(--radius-sm);
+  background: #fffefa;
+  box-shadow: var(--shadow);
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+}
+
+.analytics-consent[hidden] {
+  display: none;
+}
+
+.analytics-consent h2,
+.analytics-consent p {
+  margin: 0;
+}
+
+.analytics-consent h2 {
+  font-size: 1.05rem;
+}
+
+.analytics-consent p {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.analytics-consent a {
+  color: var(--brand-deep);
+  font-weight: 800;
+}
+
+.analytics-consent-actions {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.analytics-consent-actions button {
+  min-height: 2.75rem;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: var(--ink);
+  background: var(--surface-strong);
+  font: inherit;
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.analytics-consent-actions .analytics-consent-allow {
+  border-color: var(--brand-deep);
+  color: #fff;
+  background: var(--brand-deep);
+}
+
 .footer-icon {
   width: 1.45rem;
   height: 1.45rem;
@@ -1600,6 +1708,15 @@ main > .section-tight:first-child {
     width: 3.25rem;
     height: 3.25rem;
     font-size: 0.78rem;
+  }
+
+  .analytics-consent {
+    bottom: 5rem;
+    grid-template-columns: 1fr;
+  }
+
+  .analytics-consent-actions {
+    justify-content: flex-end;
   }
 }
 

@@ -1,4 +1,136 @@
+const ANALYTICS_ID = "G-NFGV86CR3K";
+const ANALYTICS_CONSENT_KEY = "flower-shop-vn.analytics-consent";
+const ANALYTICS_DISABLE_KEY = `ga-disable-${ANALYTICS_ID}`;
+
+// GA4 採基本同意模式：訪客允許前不下載 Google 標籤，也不送出分析請求。
+function initAnalyticsConsent() {
+  const readConsent = () => {
+    try {
+      return localStorage.getItem(ANALYTICS_CONSENT_KEY);
+    } catch {
+      return null;
+    }
+  };
+
+  const saveConsent = (value) => {
+    try {
+      localStorage.setItem(ANALYTICS_CONSENT_KEY, value);
+    } catch {
+      // 隱私模式可能禁止儲存；本頁選擇仍會生效，下次造訪再詢問。
+    }
+  };
+
+  const prepareGoogleTag = () => {
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function gtag() {
+      window.dataLayer.push(arguments);
+    };
+  };
+
+  const denyGoogleConsent = () => {
+    // Google 官方停用旗標會阻止既有標籤繼續設定 Cookie 或傳送資料。
+    window[ANALYTICS_DISABLE_KEY] = true;
+    if (!window.gtag) return;
+    window.gtag("consent", "update", {
+      analytics_storage: "denied",
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+    });
+  };
+
+  const loadAnalytics = () => {
+    window[ANALYTICS_DISABLE_KEY] = false;
+    prepareGoogleTag();
+    const existingTag = document.querySelector(`[data-ga4-id="${ANALYTICS_ID}"]`);
+    if (!existingTag) {
+      window.gtag("consent", "default", {
+        analytics_storage: "denied",
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+      });
+    }
+    window.gtag("consent", "update", {
+      analytics_storage: "granted",
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+    });
+    if (existingTag) return;
+
+    window.gtag("js", new Date());
+    window.gtag("config", ANALYTICS_ID, {
+      allow_google_signals: false,
+      allow_ad_personalization_signals: false,
+    });
+
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${ANALYTICS_ID}`;
+    script.dataset.ga4Id = ANALYTICS_ID;
+    document.head.append(script);
+  };
+
+  const banner = document.createElement("aside");
+  banner.className = "analytics-consent";
+  banner.hidden = true;
+  banner.setAttribute("aria-labelledby", "analytics-consent-title");
+  banner.innerHTML = `
+    <div>
+      <h2 id="analytics-consent-title">網站分析偏好</h2>
+      <p>允許後才會載入 Google Analytics 4，協助了解頁面使用情形；廣告追蹤維持關閉。詳見<a href="/ordering-policy/">訂購與個資說明</a>。</p>
+    </div>
+    <div class="analytics-consent-actions">
+      <button type="button" data-analytics-deny>暫不允許</button>
+      <button type="button" class="analytics-consent-allow" data-analytics-allow>允許分析</button>
+    </div>`;
+  document.body.append(banner);
+
+  const allowButton = banner.querySelector("[data-analytics-allow]");
+  const denyButton = banner.querySelector("[data-analytics-deny]");
+  const settingsButton = document.createElement("button");
+  settingsButton.className = "analytics-settings-button";
+  settingsButton.type = "button";
+  settingsButton.textContent = "分析偏好設定";
+  document.querySelector(".footer-grid > div:last-child")?.append(settingsButton);
+
+  let restoreSettingsFocus = false;
+  const showBanner = (moveFocus = false) => {
+    restoreSettingsFocus = moveFocus;
+    banner.hidden = false;
+    if (moveFocus) allowButton.focus();
+  };
+
+  const hideBanner = () => {
+    banner.hidden = true;
+    if (restoreSettingsFocus) settingsButton.focus();
+    restoreSettingsFocus = false;
+  };
+
+  allowButton.addEventListener("click", () => {
+    saveConsent("granted");
+    loadAnalytics();
+    hideBanner();
+  });
+
+  denyButton.addEventListener("click", () => {
+    saveConsent("denied");
+    denyGoogleConsent();
+    hideBanner();
+  });
+
+  settingsButton.addEventListener("click", () => showBanner(true));
+
+  window[ANALYTICS_DISABLE_KEY] = true;
+  const consent = readConsent();
+  if (consent === "granted") loadAnalytics();
+  else if (consent !== "denied") showBanner();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+  initAnalyticsConsent();
+
   const navToggle = document.querySelector("[data-nav-toggle]");
   const nav = document.querySelector("[data-nav]");
 

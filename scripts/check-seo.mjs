@@ -100,6 +100,40 @@ for (const filePath of pages) {
 
 assert.ok(canonicals.has(`${SITE_URL}/ordering-policy/`), "必須發布訂購、變更與個資說明頁");
 
+// 主要內頁的首屏圖片必須優先使用 WebP，同時保留原始 JPG 作為後備格式。
+const heroWebpPages = [
+  ["services/wedding-flowers-vietnam/index.html", "/images/IMG_4860.webp"],
+  ["services/funeral-flowers-vietnam/index.html", "/images/IMG_8931.webp"],
+  ["services/birthday-flowers-vietnam/index.html", "/images/IMG_8454.webp"],
+  ["services/opening-stand-vietnam/index.html", "/images/IMG_4786.webp"],
+  ["cities/ho-chi-minh/index.html", "/images/IMG_7448.webp"],
+  ["cities/hanoi/index.html", "/images/IMG_4865.webp"],
+  ["cities/da-nang/index.html", "/images/IMG_8387.webp"],
+  ["pricing/index.html", "/images/IMG_1006.webp"],
+  ["contact/index.html", "/images/IMG_8154.webp"],
+];
+
+for (const [relativePath, webpUrl] of heroWebpPages) {
+  const html = await readFile(path.join(ROOT, relativePath), "utf8");
+  await access(path.join(ROOT, webpUrl.slice(1)));
+  assert.match(
+    html,
+    new RegExp(`<picture>\\s*<source srcset="${webpUrl.replaceAll(".", "\\.")}" type="image/webp">\\s*<img[^>]+fetchpriority="high"[^>]*>\\s*</picture>`),
+    `${relativePath} 的首屏圖片必須使用 WebP 並保留 JPG 後備`,
+  );
+}
+
+// Cloudflare Pages 會自動使用根目錄 404.html；錯誤頁不得進入搜尋索引。
+const notFound = await readFile(path.join(ROOT, "404.html"), "utf8");
+assert.match(notFound, /<html lang="zh-Hant">/, "404 頁語系必須是 zh-Hant");
+assert.match(notFound, /<meta name="robots" content="noindex,follow">/, "404 頁必須設定 noindex,follow");
+assert.doesNotMatch(notFound, /<link rel="canonical"/, "404 頁不得宣告 canonical");
+assert.equal((notFound.match(/<h1\b/g) || []).length, 1, "404 頁必須恰好有一個 H1");
+assert.match(notFound, /href="\/"/, "404 頁必須能回到首頁");
+assert.match(notFound, /href="\/contact\/"/, "404 頁必須能前往聯絡頁");
+assert.equal((notFound.match(/<footer class="site-footer">/g) || []).length, 1, "404 頁必須有共用 footer");
+assert.equal((notFound.match(/<nav class="floating-contact"/g) || []).length, 1, "404 頁必須有快速聯絡導覽");
+
 // sitemap 必須完整覆蓋所有可索引頁，不能混入舊網域或不存在的頁面。
 const sitemap = await readFile(path.join(ROOT, "sitemap.xml"), "utf8");
 const sitemapEntries = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
@@ -121,6 +155,8 @@ assert.doesNotMatch(`${[...canonicals].join("\n")}\n${sitemap}\n${robots}`, /flo
 const headers = await readFile(path.join(ROOT, "_headers"), "utf8");
 assert.match(headers, /script-src[^\n]*https:\/\/static\.cloudflareinsights\.com/, "CSP script-src 必須允許 Cloudflare Web Analytics");
 assert.match(headers, /connect-src[^\n]*https:\/\/cloudflareinsights\.com/, "CSP connect-src 必須允許 Cloudflare Web Analytics");
+assert.match(headers, /script-src[^\n]*https:\/\/www\.googletagmanager\.com/, "CSP script-src 必須允許使用者同意後載入 GA4");
+assert.match(headers, /connect-src[^\n]*https:\/\/www\.google-analytics\.com/, "CSP connect-src 必須允許 GA4 分析請求");
 // Cloudflare 邊緣目前會插入動態 inline challenge script；未停用該功能前必須保留此例外。
 assert.match(headers, /script-src[^;\n]*'unsafe-inline'/, "CSP 必須允許 Cloudflare 邊緣插入的 inline challenge script");
 const assetsPolicy = headers.match(/\/assets\/\*([\s\S]*?)(?=\n\/|\s*$)/)?.[1] || "";
@@ -130,5 +166,15 @@ assert.match(assetsPolicy, /Cache-Control: public, max-age=0, must-revalidate/, 
 const contact = await readFile(path.join(ROOT, "contact", "index.html"), "utf8");
 assert.match(contact, /data-copy-inquiry/, "聯絡頁必須提供一鍵複製詢價模板");
 assert.match(contact, /data-inquiry-template/, "聯絡頁必須提供可直接編輯的詢價資料欄位");
+
+// GA4 僅能由共用腳本在使用者同意後載入，並須提供隨時修改選擇的入口。
+const mainScript = await readFile(path.join(ROOT, "assets", "js", "main.js"), "utf8");
+const orderingPolicy = await readFile(path.join(ROOT, "ordering-policy", "index.html"), "utf8");
+assert.match(mainScript, /G-NFGV86CR3K/, "共用腳本必須使用本網站的 GA4 評估 ID");
+assert.match(mainScript, /if \(consent === "granted"\) loadAnalytics\(\)/, "GA4 必須只在使用者同意後自動載入");
+assert.match(mainScript, /ad_personalization: "denied"/, "GA4 必須停用廣告個人化");
+assert.match(mainScript, /ga-disable-/, "撤回同意後必須使用 Google 官方停用旗標阻止資料傳送");
+assert.match(mainScript, /分析偏好設定/, "頁尾必須提供分析偏好設定入口");
+assert.match(orderingPolicy, /只有在你按下「允許分析」後/, "個資說明必須揭露 GA4 的同意後載入方式");
 
 console.log(`SEO 檢查通過：${pages.length} 個頁面、${internalLinks.size} 個站內連結目標，metadata、JSON-LD、robots 與 sitemap 一致。`);

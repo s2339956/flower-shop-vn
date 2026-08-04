@@ -486,8 +486,9 @@ async function main() {
   await writeFile(path.join(ROOT, "sitemap.xml"), renderSitemap(posts), "utf8");
 
   const routes = [...staticRoutes, ...posts.map((post) => post.url)];
-  for (const route of routes) {
-    const filePath = pagePath(route);
+  // 404 不列入 Sitemap，但沿用同一份頁尾與快速聯絡導覽。
+  const shellFiles = [...routes.map(pagePath), path.join(ROOT, "404.html")];
+  for (const filePath of shellFiles) {
     const html = await readFile(filePath, "utf8");
     const normalized = normalizeSiteShell(html);
     if (
@@ -495,12 +496,12 @@ async function main() {
       || !normalized.includes('<footer class="site-footer">')
       || !normalized.includes('<nav class="floating-contact"')
     ) {
-      throw new Error(`${route} 的共用版面正規化不是冪等操作。`);
+      throw new Error(`${path.relative(ROOT, filePath)} 的共用版面正規化不是冪等操作。`);
     }
     await writeFile(filePath, normalized, "utf8");
   }
 
-  console.log(`Generated ${posts.length} blog posts, sitemap, and normalized ${routes.length} pages.`);
+  console.log(`Generated ${posts.length} blog posts, sitemap, and normalized ${shellFiles.length} pages.`);
 }
 
 main().catch((error) => {
