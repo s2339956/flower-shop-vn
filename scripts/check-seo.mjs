@@ -121,7 +121,8 @@ assert.doesNotMatch(`${[...canonicals].join("\n")}\n${sitemap}\n${robots}`, /flo
 const headers = await readFile(path.join(ROOT, "_headers"), "utf8");
 assert.match(headers, /script-src[^\n]*https:\/\/static\.cloudflareinsights\.com/, "CSP script-src 必須允許 Cloudflare Web Analytics");
 assert.match(headers, /connect-src[^\n]*https:\/\/cloudflareinsights\.com/, "CSP connect-src 必須允許 Cloudflare Web Analytics");
-assert.doesNotMatch(headers, /script-src[^;\n]*'unsafe-inline'/, "CSP script-src 不得允許不必要的 inline JavaScript");
+// Cloudflare 邊緣目前會插入動態 inline challenge script；未停用該功能前必須保留此例外。
+assert.match(headers, /script-src[^;\n]*'unsafe-inline'/, "CSP 必須允許 Cloudflare 邊緣插入的 inline challenge script");
 const assetsPolicy = headers.match(/\/assets\/\*([\s\S]*?)(?=\n\/|\s*$)/)?.[1] || "";
 assert.match(assetsPolicy, /Cache-Control: public, max-age=0, must-revalidate/, "未版本化的 CSS 與 JS 必須每次重新驗證");
 
