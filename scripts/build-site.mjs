@@ -2,7 +2,7 @@ import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
-const SITE_URL = "https://flower-shop-vn.pages.dev";
+const SITE_URL = "https://flower-shop-vn.com";
 const ROOT = process.cwd();
 const CONTENT_DIR = path.join(ROOT, "content", "blog");
 

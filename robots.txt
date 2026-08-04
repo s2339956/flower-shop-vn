@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://flower-shop-vn.pages.dev/sitemap.xml
+Sitemap: https://flower-shop-vn.com/sitemap.xml
