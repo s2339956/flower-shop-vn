@@ -5,6 +5,8 @@ import path from "node:path";
 const SITE_URL = "https://flower-shop-vn.com";
 const ROOT = process.cwd();
 const CONTENT_DIR = path.join(ROOT, "content", "blog");
+// 網域與整站 SEO 發布日獨立於文章內容日期，sitemap 取兩者較新值。
+const SEO_RELEASE_DATE = "2026-08-04";
 
 const staticRoutes = [
   "/",
@@ -351,20 +353,20 @@ function renderPost(post) {
         dateModified: post.updated,
         datePublished: post.date,
         inLanguage: "zh-Hant",
-        author: {
-          "@type": "Organization",
-          name: "Flower Shop VN",
-        },
-        publisher: {
-          "@type": "Organization",
-          name: "Flower Shop VN",
-          logo: {
-            "@type": "ImageObject",
-            url: absoluteUrl("/images/favicon_io/android-chrome-512x512.png"),
-          },
-        },
+        author: { "@id": `${SITE_URL}/#organization` },
+        publisher: { "@id": `${SITE_URL}/#organization` },
         mainEntityOfPage: post.canonical,
         image: absoluteUrl(post.heroImage),
+      },
+      {
+        "@type": "Organization",
+        "@id": `${SITE_URL}/#organization`,
+        name: "越南花禮代訂所 Flower Shop VN",
+        url: `${SITE_URL}/`,
+        logo: {
+          "@type": "ImageObject",
+          url: absoluteUrl("/images/favicon_io/android-chrome-512x512.png"),
+        },
       },
       breadcrumb([
         { name: "首頁", url: "/" },
@@ -390,8 +392,11 @@ function renderPost(post) {
 
 function renderSitemap(posts) {
   const urls = [
-    ...staticRoutes.map((route) => ({ loc: absoluteUrl(route), lastmod: "2026-04-24" })),
-    ...posts.map((post) => ({ loc: post.canonical, lastmod: post.updated })),
+    ...staticRoutes.map((route) => ({ loc: absoluteUrl(route), lastmod: SEO_RELEASE_DATE })),
+    ...posts.map((post) => ({
+      loc: post.canonical,
+      lastmod: post.updated > SEO_RELEASE_DATE ? post.updated : SEO_RELEASE_DATE,
+    })),
   ];
 
   return `<?xml version="1.0" encoding="UTF-8"?>
