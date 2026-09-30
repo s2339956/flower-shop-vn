@@ -76,6 +76,37 @@ textarea:focus-visible {
   outline-offset: 4px;
 }
 
+/* 同款的其他角度用原生 details 展開，不需額外腳本或重複商品卡片。 */
+.work-angles {
+  margin-top: 1rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--line);
+}
+
+.work-angles summary {
+  color: var(--brand-deep);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.work-angles summary:focus-visible {
+  outline: 3px solid var(--sage-deep);
+  outline-offset: 4px;
+}
+
+.work-angles a {
+  display: block;
+  margin-top: 0.75rem;
+  color: var(--brand-deep);
+  font-size: 0.9rem;
+}
+
+.work-angles img {
+  height: auto;
+  max-height: 14rem;
+  object-fit: contain;
+}
+
 main {
   display: block;
 }
@@ -892,6 +923,46 @@ main > .section-tight:first-child {
   font-size: 0.95rem;
 }
 
+/* 作品完整置入圖片框，不裁掉花面或包裝；錨點預留固定導覽的高度。 */
+.portfolio-section,
+.portfolio-work,
+#inquiry {
+  scroll-margin-top: 8rem;
+}
+
+.portfolio-work > a {
+  background: var(--surface-strong);
+}
+
+.portfolio-work img {
+  object-fit: contain;
+}
+
+.portfolio-work:target {
+  outline: 3px solid var(--brand-deep);
+  outline-offset: 4px;
+  /* 直接開啟作品連結時取消進場位移，避免錨點定位後再次移到導覽下方。 */
+  opacity: 1;
+  transform: none;
+}
+
+.image-card-landscape {
+  aspect-ratio: 16 / 9;
+  min-height: 0;
+}
+
+.case-card .work-code {
+  margin: 0 0 0.5rem;
+  color: var(--brand-deep);
+  font-weight: 800;
+}
+
+.work-permalink {
+  color: var(--brand-deep);
+  font-weight: 700;
+  text-underline-offset: 0.2em;
+}
+
 .process {
   counter-reset: process;
   display: grid;
@@ -1439,6 +1510,10 @@ main > .section-tight:first-child {
 }
 
 @media (max-width: 780px) {
+  .image-card.image-card-landscape {
+    aspect-ratio: 16 / 9;
+  }
+
   .container {
     width: min(calc(100% - 2rem), var(--container));
   }

@@ -3,12 +3,12 @@ title: 越南喪禮花圈代訂流程
 description: 跨國安排越南喪禮花圈時，需要準備的資料、輓詞與配送注意事項。
 slug: vietnam-funeral-flower-ordering
 date: 2026-04-22
-updated: 2026-04-22
+updated: 2026-09-30
 category: 喪禮花圈
-heroImage: /images/IMG_8931.JPG
-heroAlt: 越南喪禮花圈代訂流程
-imageWidth: 720
-imageHeight: 1280
+heroImage: /images/favicon_io/android-chrome-512x512.png
+heroAlt: Flower Shop VN 品牌標誌
+imageWidth: 512
+imageHeight: 512
 hideCardImage: true
 ---
 

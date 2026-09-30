@@ -173,6 +173,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const copyInquiry = document.querySelector("[data-copy-inquiry]");
   const copyStatus = document.querySelector("[data-copy-status]");
 
+  // 只帶入作品清單中的編號；內容留在詢價欄位，由客戶自行複製給客服。
+  if (inquiryTemplate) {
+    const work = new URLSearchParams(window.location.search).get("work");
+    if (work && (inquiryTemplate.dataset.workCodes || "").split(",").includes(work)) {
+      inquiryTemplate.value = inquiryTemplate.value.replace(
+        "作品編號或參考連結：",
+        `作品編號或參考連結：${work}（https://flower-shop-vn.com/gallery/#work-${work}）`,
+      );
+    }
+  }
+
   // 詢價內容只在瀏覽器內複製，不會由網站收集或傳送。
   if (inquiryTemplate && copyInquiry && copyStatus) {
     copyInquiry.addEventListener("click", async () => {
@@ -229,6 +240,11 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     revealTargets.forEach((target, index) => {
+      // 作品深連結直接顯示，避免動畫位移改變瀏覽器已計算的錨點位置。
+      if (target.id && window.location.hash === `#${target.id}`) {
+        target.classList.add("is-revealed");
+        return;
+      }
       target.classList.add("reveal-item");
       target.style.transitionDelay = `${Math.min(index % 4, 3) * 90}ms`;
       revealObserver.observe(target);

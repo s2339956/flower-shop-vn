@@ -100,27 +100,123 @@ for (const filePath of pages) {
 
 assert.ok(canonicals.has(`${SITE_URL}/ordering-policy/`), "必須發布訂購、變更與個資說明頁");
 
-// 主要內頁的首屏圖片必須優先使用 WebP，同時保留原始 JPG 作為後備格式。
-const heroWebpPages = [
-  ["services/wedding-flowers-vietnam/index.html", "/images/IMG_4860.webp"],
-  ["services/funeral-flowers-vietnam/index.html", "/images/IMG_8931.webp"],
-  ["services/birthday-flowers-vietnam/index.html", "/images/IMG_8454.webp"],
-  ["services/opening-stand-vietnam/index.html", "/images/IMG_4786.webp"],
-  ["cities/ho-chi-minh/index.html", "/images/IMG_7448.webp"],
-  ["cities/hanoi/index.html", "/images/IMG_4865.webp"],
-  ["cities/da-nang/index.html", "/images/IMG_8387.webp"],
-  ["pricing/index.html", "/images/IMG_1006.webp"],
-  ["contact/index.html", "/images/IMG_8154.webp"],
-];
-
-for (const [relativePath, webpUrl] of heroWebpPages) {
+// 首屏圖片應優先載入；新素材只保留一份 WebP，避免重複保存同款原圖。
+for (const relativePath of [
+  "services/birthday-flowers-vietnam/index.html", "services/wedding-flowers-vietnam/index.html",
+  "cities/hanoi/index.html", "cities/da-nang/index.html", "cities/ho-chi-minh/index.html",
+  "pricing/index.html", "contact/index.html",
+]) {
   const html = await readFile(path.join(ROOT, relativePath), "utf8");
-  await access(path.join(ROOT, webpUrl.slice(1)));
-  assert.match(
-    html,
-    new RegExp(`<picture>\\s*<source srcset="${webpUrl.replaceAll(".", "\\.")}" type="image/webp">\\s*<img[^>]+fetchpriority="high"[^>]*>\\s*</picture>`),
-    `${relativePath} 的首屏圖片必須使用 WebP 並保留 JPG 後備`,
-  );
+  assert.match(html, /<img[^>]+fetchpriority="high"/, `${relativePath} 首屏圖片必須優先載入`);
+}
+
+// 檢查完整資產引用與已審閱清單，防止原圖、WebP、分享圖或影片重新混入。
+const reviewedPhotos = new Set([
+  "/images/IMG_0980.JPG", "/images/IMG_0980.webp",
+  "/images/IMG_4860.JPG", "/images/IMG_4860.webp",
+  "/images/IMG_4865.JPG", "/images/IMG_4865.webp",
+  "/images/gallery/2026/workshop-red-rose-bouquets.jpg",
+  "/images/blog/2026/vietnam-flower-delivery-anh-yeu-em/anhWei-yeu-em.jpg",
+  "/images/gallery/2026/r002.webp",
+  "/images/gallery/2026/b001.webp",
+  "/images/gallery/2026/v001.webp",
+  "/images/gallery/2026/r035.webp",
+  "/images/gallery/2026/r036.webp",
+  "/images/gallery/2026/r037.webp",
+  "/images/gallery/2026/r038.webp",
+  "/images/gallery/2026/b017.webp",
+  "/images/gallery/2026/r022.webp",
+  "/images/gallery/2026/r023.webp",
+  "/images/gallery/2026/r024.webp",
+  "/images/gallery/2026/b009.webp",
+  "/images/gallery/2026/r025.webp",
+  "/images/gallery/2026/r026.webp",
+  "/images/gallery/2026/b010.webp",
+  "/images/gallery/2026/b011.webp",
+  "/images/gallery/2026/r027.webp",
+  "/images/gallery/2026/r028.webp",
+  "/images/gallery/2026/r029.webp",
+  "/images/gallery/2026/b012.webp",
+  "/images/gallery/2026/b013.webp",
+  "/images/gallery/2026/b013-angle-2.webp",
+  "/images/gallery/2026/b014.webp",
+  "/images/gallery/2026/b015.webp",
+  "/images/gallery/2026/r030.webp",
+  "/images/gallery/2026/r031.webp",
+  "/images/gallery/2026/r032.webp",
+  "/images/gallery/2026/r032-angle-2.webp",
+  "/images/gallery/2026/m007.webp",
+  "/images/gallery/2026/r033.webp",
+  "/images/gallery/2026/m008.webp",
+  "/images/gallery/2026/b016.webp",
+  "/images/gallery/2026/f013.webp",
+  "/images/gallery/2026/f014.webp",
+  "/images/gallery/2026/f015.webp",
+  "/images/gallery/2026/f016.webp",
+  "/images/gallery/2026/m009.webp",
+  "/images/gallery/2026/r034.webp",
+  "/images/gallery/2026/r003.webp",
+  "/images/gallery/2026/r004.webp",
+  "/images/gallery/2026/r005.webp",
+  "/images/gallery/2026/r006.webp",
+  "/images/gallery/2026/b002.webp",
+  "/images/gallery/2026/r007.webp",
+  "/images/gallery/2026/b003.webp",
+  "/images/gallery/2026/b004.webp",
+  "/images/gallery/2026/r008.webp",
+  "/images/gallery/2026/r009.webp",
+  "/images/gallery/2026/r010.webp",
+  "/images/gallery/2026/r011.webp",
+  "/images/gallery/2026/b005.webp",
+  "/images/gallery/2026/r012.webp",
+  "/images/gallery/2026/r013.webp",
+  "/images/gallery/2026/r014.webp",
+  "/images/gallery/2026/b006.webp",
+  "/images/gallery/2026/b007.webp",
+  "/images/gallery/2026/r015.webp",
+  "/images/gallery/2026/b008.webp",
+  "/images/gallery/2026/r016.webp",
+  "/images/gallery/2026/r017.webp",
+  "/images/gallery/2026/r018.webp",
+  "/images/gallery/2026/r019.webp",
+  "/images/gallery/2026/r020.webp",
+  "/images/gallery/2026/r021.webp",
+  "/images/gallery/2026/m005.webp",
+  "/images/gallery/2026/m006.webp",
+  "/images/gallery/2026/f001.webp",
+  "/images/gallery/2026/f002.webp",
+  "/images/gallery/2026/f003.webp",
+  "/images/gallery/2026/f004.webp",
+  "/images/gallery/2026/f005.webp",
+  "/images/gallery/2026/f006.webp",
+  "/images/gallery/2026/f007.webp",
+  "/images/gallery/2026/f008.webp",
+  "/images/gallery/2026/f009.webp",
+  "/images/gallery/2026/f010.webp",
+  "/images/gallery/2026/f011.webp",
+  "/images/gallery/2026/f012.webp",
+]);
+for (const filePath of pages) {
+  const html = await readFile(filePath, "utf8");
+  for (const match of html.matchAll(/(?:https:\/\/flower-shop-vn\.com)?(\/(?:images|videos)\/[^"\s<>]+)/g)) {
+    const asset = match[1];
+    await access(path.join(ROOT, asset.slice(1)));
+    assert.ok(asset.startsWith("/images/favicon_io/") || reviewedPhotos.has(asset), `${filePath} 引用了尚未審閱的素材：${asset}`);
+  }
+}
+const gallery = await readFile(path.join(ROOT, "gallery/index.html"), "utf8");
+const workCodes = [...gallery.matchAll(/id="work-([A-Z]\d{3})"/g)].map((match) => match[1]);
+assert.equal(new Set(workCodes).size, workCodes.length, "作品編號不得重複");
+assert.ok(["R001", "M001", "M002", "M003", "M004"].every((code) => workCodes.includes(code)), "已公開的作品編號必須保留");
+const contactCodes = (await readFile(path.join(ROOT, "contact/index.html"), "utf8")).match(/data-work-codes="([^"]+)"/)[1].split(",");
+assert.deepEqual(new Set(contactCodes), new Set(workCodes), "作品編號與詢價清單必須一致");
+const galleryImages = [...gallery.matchAll(/<img src="([^"]+)"/g)].map((match) => match[1]);
+assert.equal(new Set(galleryImages).size, galleryImages.length, "作品區相同圖片不得重複保存與展示");
+for (const code of workCodes) assert.ok(gallery.includes(`href="/contact/?work=${code}#inquiry"`), `${code} 缺少詢價入口`);
+for (const relativePath of ["services/funeral-flowers-vietnam/index.html", "services/opening-stand-vietnam/index.html"]) {
+  const html = await readFile(path.join(ROOT, relativePath), "utf8");
+  assert.match(html, /class="info-panel"/, `${relativePath} 必須提供訂購資訊`);
+  assert.doesNotMatch(html, /<img\b/, `${relativePath} 不得用其他用途的作品照片代替`);
 }
 
 // Cloudflare Pages 會自動使用根目錄 404.html；錯誤頁不得進入搜尋索引。

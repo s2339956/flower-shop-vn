@@ -7,7 +7,7 @@ const ROOT = process.cwd();
 const CONTENT_DIR = path.join(ROOT, "content", "blog");
 const SHOPEE_GUIDE_URL = "https://shopee.tw/product/3151001/29700986020/";
 // 網域與整站 SEO 發布日獨立於文章內容日期，sitemap 取兩者較新值。
-const SEO_RELEASE_DATE = "2026-08-04";
+const SEO_RELEASE_DATE = "2026-09-30";
 
 const staticRoutes = [
   "/",
@@ -41,7 +41,7 @@ function siteFooter() {
         <a href="/services/birthday-flowers-vietnam/">生日花束</a>
         <a href="/services/wedding-flowers-vietnam/">婚禮花禮</a>
         <a href="/services/funeral-flowers-vietnam/">喪禮花圈</a>
-        <a href="/gallery/">花束展示</a>
+        <a href="/gallery/">作品參考</a>
       </div>
       <div>
         <h3>城市</h3>
@@ -283,7 +283,7 @@ function layout({ title, description, canonical, ogImage, ogType = "article", na
     ["/", "首頁", "home"],
     ["/services/", "服務", "services"],
     ["/cities/", "城市", "cities"],
-    ["/gallery/", "花束展示", "gallery"],
+    ["/gallery/", "作品參考", "gallery"],
     ["/pricing/", "價格", "pricing"],
     ["/faq/", "FAQ", "faq"],
     ["/blog/", "Blog", "blog"],
@@ -396,7 +396,7 @@ function renderBlogIndex(posts) {
     title,
     description,
     canonical: absoluteUrl("/blog/"),
-    ogImage: "/images/IMG_5019.JPG",
+    ogImage: "/images/gallery/2026/b001.webp",
     ogType: "website",
     schema,
     body: `  <main>

@@ -3,16 +3,16 @@ title: 越南生日送花流程
 description: 從台灣下單到越南收花的完整生日送花指南。
 slug: vietnam-birthday-flower-guide
 date: 2026-04-22
-updated: 2026-04-22
+updated: 2026-09-30
 category: 生日花束
-heroImage: /images/IMG_8454.jpg
-heroAlt: 越南生日送花流程指南
-imageWidth: 1179
-imageHeight: 2556
-cardImage: /images/IMG_8931.JPG
-cardAlt: 越南生日花禮與氣球搭配案例
-cardImageWidth: 720
-cardImageHeight: 1280
+heroImage: /images/gallery/2026/b001.webp
+heroAlt: 白綠色花束・黑色包裝
+imageWidth: 578
+imageHeight: 650
+cardImage: /images/gallery/2026/b001.webp
+cardAlt: 白綠色花束・黑色包裝
+cardImageWidth: 578
+cardImageHeight: 650
 ---
 
 ## 步驟 1：先整理收件與時間資訊

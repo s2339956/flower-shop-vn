@@ -3,12 +3,12 @@ title: 胡志明市當日送花規範
 description: 胡志明市當日送花需視下單時間、花材、地址與當天配送量能確認。
 slug: ho-chi-minh-same-day-flower-rules
 date: 2026-04-22
-updated: 2026-04-22
+updated: 2026-09-30
 category: 城市配送
-heroImage: /images/IMG_7448.JPG
-heroAlt: 胡志明市當日送花規範
-imageWidth: 1080
-imageHeight: 1440
+heroImage: /images/gallery/2026/b001.webp
+heroAlt: 白綠色花束・黑色包裝
+imageWidth: 578
+imageHeight: 650
 ---
 
 ## 什麼情況比較容易安排當日件
