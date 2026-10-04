@@ -120,6 +120,9 @@ const reviewedPhotos = new Set([
   "/images/gallery/2026/r002.webp",
   "/images/gallery/2026/b001.webp",
   "/images/gallery/2026/v001.webp",
+  "/images/gallery/2026/b018.webp",
+  "/images/gallery/2026/r039.webp",
+  "/images/gallery/2026/m010.webp",
   "/images/gallery/2026/r035.webp",
   "/images/gallery/2026/r036.webp",
   "/images/gallery/2026/r037.webp",
@@ -199,7 +202,8 @@ const reviewedPhotos = new Set([
 for (const filePath of pages) {
   const html = await readFile(filePath, "utf8");
   for (const match of html.matchAll(/(?:https:\/\/flower-shop-vn\.com)?(\/(?:images|videos)\/[^"\s<>]+)/g)) {
-    const asset = match[1];
+    // 圖片可帶內容版本參數；檔案存在與審閱清單仍以 pathname 驗證。
+    const asset = new URL(match[1], SITE_URL).pathname;
     await access(path.join(ROOT, asset.slice(1)));
     assert.ok(asset.startsWith("/images/favicon_io/") || reviewedPhotos.has(asset), `${filePath} 引用了尚未審閱的素材：${asset}`);
   }

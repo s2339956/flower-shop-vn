@@ -458,7 +458,11 @@ function renderPost(post) {
 
 function renderSitemap(posts) {
   const urls = [
-    ...staticRoutes.map((route) => ({ loc: absoluteUrl(route), lastmod: SEO_RELEASE_DATE })),
+    ...staticRoutes.map((route) => ({
+      loc: absoluteUrl(route),
+      // 此次只更新作品頁及詢價清單，其他頁面保留既有更新日期。
+      lastmod: ["/gallery/", "/contact/"].includes(route) ? "2026-10-05" : SEO_RELEASE_DATE,
+    })),
     ...posts.map((post) => ({
       loc: post.canonical,
       lastmod: post.updated > SEO_RELEASE_DATE ? post.updated : SEO_RELEASE_DATE,
