@@ -939,9 +939,7 @@ main > .section-tight:first-child {
 }
 
 .portfolio-work:target {
-  outline: 3px solid var(--brand-deep);
-  outline-offset: 4px;
-  /* 直接開啟作品連結時取消進場位移，避免錨點定位後再次移到導覽下方。 */
+  /* 作品定位不加外框；取消進場位移，避免定位後移到固定導覽下方。 */
   opacity: 1;
   transform: none;
 }
