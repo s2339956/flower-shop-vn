@@ -1,0 +1,13 @@
+{
+  // 沿用既有 Worker 名稱；只發布建置後的靜態產物，不變更網域或帳號權限。
+  "name": "flower-shop-vn",
+  "compatibility_date": "2026-09-30",
+  "build": {
+    // 圖片衍生檔已納入版本控制，雲端建置不需要額外安裝 Pillow。
+    "command": "node scripts/build-site.mjs && node scripts/build-release.mjs"
+  },
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}
