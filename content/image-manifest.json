@@ -1247,6 +1247,44 @@
       }
     ]
   },
+  "/images/gallery/2026/b021.webp": {
+    "width": 960,
+    "height": 1280,
+    "originalBytes": 148626,
+    "sourceSha256": "6ae1c331027d9d773ad8b185695c1ec108e26b7780ae2e96ad0c83967543cccf",
+    "variants": [
+      {
+        "src": "/images/responsive/b021-23fba139e9a4-320w.webp",
+        "width": 320,
+        "height": 427,
+        "bytes": 22452
+      },
+      {
+        "src": "/images/responsive/b021-23fba139e9a4-360w.webp",
+        "width": 360,
+        "height": 480,
+        "bytes": 26602
+      },
+      {
+        "src": "/images/responsive/b021-23fba139e9a4-480w.webp",
+        "width": 480,
+        "height": 640,
+        "bytes": 39414
+      },
+      {
+        "src": "/images/responsive/b021-23fba139e9a4-640w.webp",
+        "width": 640,
+        "height": 853,
+        "bytes": 57246
+      },
+      {
+        "src": "/images/responsive/b021-23fba139e9a4-960w.webp",
+        "width": 960,
+        "height": 1280,
+        "bytes": 98364
+      }
+    ]
+  },
   "/images/gallery/2026/f001.webp": {
     "width": 1200,
     "height": 1600,

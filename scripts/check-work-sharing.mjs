@@ -34,7 +34,7 @@ try {
   if (process.argv.includes('--browser-only')) process.exitCode = 0;
   else {
     await page.locator('[data-gallery-filter="all"]').click();
-    assert.equal(await page.locator('.portfolio-work:visible').count(), 93);
+    assert.equal(await page.locator('.portfolio-work:visible').count(), catalog.flatMap(group => group.works).length);
     await page.goBack();
     assert.equal(await page.locator('.portfolio-work:visible').count(), 1);
     await page.goto(`${base}/gallery/B013/`);
@@ -65,7 +65,7 @@ try {
     await plain.goto(`${base}/gallery/B013/`);
     assert.equal(await plain.locator('.portfolio-work:visible').count(), 1);
     await noJS.close();
-    await writeFile('dev-notes/work-sharing/browser-result.json', JSON.stringify({ base, status: 'passed', works: 93, checks: ['舊錨點單作品', '返回全部與瀏覽器返回', 'B013 修圖', '獨立頁分享連結', '375/390/768/1440 排版', '無 JavaScript'] }, null, 2));
+    await writeFile('dev-notes/work-sharing/browser-result.json', JSON.stringify({ base, status: 'passed', works: catalog.flatMap(group => group.works).length, checks: ['舊錨點單作品', '返回全部與瀏覽器返回', 'B013 修圖', '獨立頁分享連結', '375/390/768/1440 排版', '無 JavaScript'] }, null, 2));
   }
   console.log('作品連結與分享檢查通過。');
 } finally { await browser.close(); }

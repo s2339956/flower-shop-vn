@@ -128,6 +128,7 @@ const reviewedPhotos = new Set([
   "/images/gallery/2026/m012.webp",
   "/images/gallery/2026/b019.webp",
   "/images/gallery/2026/b020.webp",
+  "/images/gallery/2026/b021.webp",
   "/images/gallery/2026/r043.webp",
   "/images/gallery/2026/r044.webp",
   "/images/gallery/2026/b018.webp",

@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 import { mkdir, writeFile, readFile } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
+import { catalog, workCodes } from './site-components.mjs';
+const photoCount = catalog.flatMap(group => group.works.flatMap(work => work.photos)).length;
 const runtime = await import(pathToFileURL(process.env.PLAYWRIGHT_MODULE || '/opt/homebrew/lib/node_modules/@playwright/cli/node_modules/playwright-core/index.js'));
 const { chromium } = runtime.default || runtime;
 const base = process.argv[2] || 'http://127.0.0.1:4318';
@@ -31,8 +33,8 @@ try {
   findings.push('首頁、同意前零 GA4 請求、漢堡子元素點擊及 Escape 正常');
 
   await go('/gallery/');
-  assert.equal(await page.locator('.portfolio-work').count(), 93);
-  assert.equal(await page.locator('.portfolio-work img').count(), 96);
+  assert.equal(await page.locator('.portfolio-work').count(), workCodes.length);
+  assert.equal(await page.locator('.portfolio-work img').count(), photoCount);
   await page.screenshot({ path: `${output}/gallery-mobile.png` });
   await page.locator('[data-gallery-filter="money-bouquets"]').click();
   assert.equal(await page.locator('.portfolio-work:visible').count(), 12);
@@ -102,7 +104,7 @@ try {
   const noJS = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
   const fallback = await noJS.newPage();
   await fallback.goto(base + '/gallery/');
-  assert.equal(await fallback.locator('.portfolio-work').count(), 93);
+  assert.equal(await fallback.locator('.portfolio-work').count(), workCodes.length);
   assert.equal(await fallback.locator('[data-work-search]').isVisible(), false);
   assert.equal(await fallback.locator('nav[aria-label="作品分類"]').isVisible(), true);
   assert.equal(await fallback.locator('#work-R040 a[href*="/contact/"]').getAttribute('href'), '/contact/?work=R040#inquiry');
