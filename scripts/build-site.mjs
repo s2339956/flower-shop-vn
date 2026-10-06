@@ -529,6 +529,8 @@ async function main() {
     const html = await readFile(filePath, "utf8");
     const route = routes.find(candidate => pagePath(candidate) === filePath) || "/404.html";
     let content = route === "/gallery/" ? normalizeCatalog(html) : html;
+    // 首頁等既有作品入口也使用獨立頁；舊網址本身仍由作品列表提供相容瀏覽。
+    content = content.replace(/href="\/gallery\/#work-([A-Z]\d{3})"/g, 'href="/gallery/$1/"');
     // 原生 details 讓常見問題在無 JavaScript 或腳本失敗時仍可閱讀。
     content = content.replace(/<article class="faq-item">\s*<button class="faq-question"[^>]*>([\s\S]*?)<\/button>\s*<div class="faq-answer" hidden>([\s\S]*?)<\/div>\s*<\/article>/g,
       (_match, question, answer) => `<details class="faq-item"><summary class="faq-question">${question.replace('class="faq-icon"', 'class="faq-icon" aria-hidden="true"')}</summary><div class="faq-answer">${answer}</div></details>`);

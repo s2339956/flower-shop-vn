@@ -6,6 +6,7 @@ import { catalog } from './site-components.mjs';
 const base = process.argv.find(arg => /^https?:/.test(arg)) || 'http://127.0.0.1:4318';
 // 分享機器人不執行 JavaScript：直接核對每件作品的原始 HTML 與縮圖。
 if (!process.argv.includes('--browser-only')) {
+  assert.doesNotMatch(await readFile('index.html', 'utf8'), /href="\/gallery\/#work-[A-Z]\d{3}"/, '首頁作品入口也必須使用獨立作品網址');
   for (const work of catalog.flatMap(group => group.works)) {
     const html = await readFile(`gallery/${work.id}/index.html`, 'utf8');
     assert.equal((html.match(/class="[^"]*portfolio-work/g) || []).length, 1, `${work.id} 應只顯示一件作品`);
