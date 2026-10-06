@@ -13,7 +13,7 @@ async function findPages(directory) {
   const pages = [];
 
   for (const entry of entries) {
-    if ([".git", "backups", "node_modules"].includes(entry.name)) continue;
+    if ([".git", "backups", "node_modules", "dist", "dev-notes"].includes(entry.name)) continue;
     const filePath = path.join(directory, entry.name);
     if (entry.isDirectory()) pages.push(...await findPages(filePath));
     else if (entry.name === "index.html") pages.push(filePath);
@@ -209,6 +209,15 @@ const reviewedPhotos = new Set([
   "/images/gallery/2026/f011.webp",
   "/images/gallery/2026/f012.webp",
 ]);
+// 衍生圖必須能追溯到已審閱的原始素材；不能以整個目錄放行取代來源驗證。
+const imageManifest = JSON.parse(await readFile(path.join(ROOT, 'content/image-manifest.json'), 'utf8'));
+for (const [source, info] of Object.entries(imageManifest)) {
+  if (!reviewedPhotos.has(source)) continue;
+  for (const variant of info.variants) reviewedPhotos.add(variant.src);
+}
+const socialImage = JSON.parse(await readFile(path.join(ROOT, 'content/social-image.json'), 'utf8'));
+assert.ok(socialImage.sources.every(source => reviewedPhotos.has(source)), '分享圖必須源自已審閱照片');
+reviewedPhotos.add(socialImage.src);
 for (const filePath of pages) {
   const html = await readFile(filePath, "utf8");
   for (const match of html.matchAll(/(?:https:\/\/flower-shop-vn\.com)?(\/(?:images|videos)\/[^"\s<>]+)/g)) {

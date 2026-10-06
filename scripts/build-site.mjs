@@ -1,13 +1,15 @@
 import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import { readFileSync } from "node:fs";
 import path from "node:path";
+import { createHash } from "node:crypto";
+import { siteHeader, normalizeCatalog, responsiveImages, normalizeMetadata, workCodes } from "./site-components.mjs";
 
 const SITE_URL = "https://flower-shop-vn.com";
 const ROOT = process.cwd();
 const CONTENT_DIR = path.join(ROOT, "content", "blog");
 const SHOPEE_GUIDE_URL = "https://shopee.tw/product/3151001/29700986020/";
-// 網域與整站 SEO 發布日獨立於文章內容日期，sitemap 取兩者較新值。
-const SEO_RELEASE_DATE = "2026-09-30";
+// 日期由逐頁維護清單記錄，建置時間不會自動變成內容更新時間。
+const PAGE_DATES = JSON.parse(readFileSync(path.join(ROOT, "content/page-dates.json"), "utf8"));
 
 const staticRoutes = [
   "/",
@@ -76,7 +78,7 @@ function pagePath(route) {
     : path.join(ROOT, route.replace(/^\/+|\/+$/g, ""), "index.html");
 }
 
-function normalizeSiteShell(html) {
+function normalizeSiteShell(html, route) {
   // 中文內容改用系統字型，移除會阻塞首屏的外部字型連線與樣式表。
   const withoutFonts = html
     .replace(/\s*<link rel="preconnect" href="https:\/\/fonts\.googleapis\.com">/g, "")
@@ -88,7 +90,12 @@ function normalizeSiteShell(html) {
     .replace(/<footer class="site-footer">[\s\S]*?<\/footer>/g, "")
     .replace(/<nav class="floating-contact"[\s\S]*?<\/nav>/g, "");
 
-  return withoutShell.replace(
+  const shared = withoutShell
+    .replace(/<header class="site-header">[\s\S]*?<\/header>/, siteHeader(route))
+    .replace(/<main(?: id="main-content")?>/, '<main id="main-content">')
+    .replace(/\s*<a class="skip-link"[^>]*>[\s\S]*?<\/a>\s*/g, '\n')
+    .replace(/<body>\s*/, '<body>\n  <a class="skip-link" href="#main-content">跳至主要內容</a>\n  ');
+  return shared.replace(
     /\s*<\/body>\s*<\/html>\s*$/,
     `\n\n${siteFooter()}\n\n${floatingContact()}\n</body>\n</html>\n`,
   );
@@ -279,15 +286,7 @@ function renderMarkdown(markdown = "") {
 }
 
 function layout({ title, description, canonical, ogImage, ogType = "article", navCurrent = "blog", schema, body }) {
-  const nav = [
-    ["/", "首頁", "home"],
-    ["/services/", "服務", "services"],
-    ["/cities/", "城市", "cities"],
-    ["/gallery/", "作品參考", "gallery"],
-    ["/pricing/", "價格", "pricing"],
-    ["/faq/", "FAQ", "faq"],
-    ["/blog/", "Blog", "blog"],
-  ];
+
 
   return `<!DOCTYPE html>
 <html lang="zh-Hant">
@@ -316,7 +315,7 @@ ${JSON.stringify(schema, null, 2)}
   </script>
 </head>
 <body>
-  <header class="site-header"><div class="container header-inner"><a class="brand" href="/"><span class="brand-mark">花</span><span class="brand-text"><strong>越南花禮代訂所</strong><span>Flower Shop VN</span></span></a><button class="nav-toggle" type="button" aria-label="切換導覽" aria-expanded="false" data-nav-toggle><span></span><span></span><span></span></button><nav class="site-nav" aria-label="主選單" data-nav>${nav.map(([href, label, key]) => `<a href="${href}"${key === navCurrent ? ' aria-current="page"' : ""}>${label}</a>`).join("")}<a href="/contact/" class="nav-cta">立即諮詢</a></nav></div></header>
+${siteHeader(new URL(canonical).pathname)}
 ${body}
 </body>
 </html>
@@ -363,7 +362,7 @@ async function loadPosts() {
 }
 
 function renderBlogIndex(posts) {
-  const title = "越南送花 Blog | 節日、流程與城市指南 | Flower Shop VN";
+  const title = "越南送花指南 | 預訂流程、配送條件與花禮選擇 | Flower Shop VN";
   const description = "閱讀越南送花流程、喪禮花圈代訂與胡志明市配送等實用指南。";
   const schema = {
     "@context": "https://schema.org",
@@ -389,7 +388,7 @@ function renderBlogIndex(posts) {
     const image = post.hideCardImage
       ? ""
       : `<img src="${escapeHtml(imageSrc)}" alt="${escapeHtml(imageAlt)}" width="${escapeHtml(imageWidth)}" height="${escapeHtml(imageHeight)}" loading="lazy" decoding="async">`;
-    return `<article class="article-card">${image}<h3>${escapeHtml(post.title)}</h3><p>${escapeHtml(post.description)}</p><a href="${post.url}">閱讀文章</a></article>`;
+    return `<article class="article-card">${image}<p class="article-meta">${escapeHtml(post.category || "送花指南")} · ${escapeHtml(post.updated)}</p><h3>${escapeHtml(post.title)}</h3><p>${escapeHtml(post.description)}</p><a href="${post.url}">閱讀：${escapeHtml(post.title)}</a></article>`;
   }).join("");
 
   return layout({
@@ -400,9 +399,9 @@ function renderBlogIndex(posts) {
     ogType: "website",
     schema,
     body: `  <main>
-    <section class="page-hero"><div class="container"><div class="page-hero-panel"><div class="breadcrumbs"><a href="/">首頁</a><span>/</span><span>Blog</span></div><div class="page-hero-copy"><span class="eyebrow">Content Hub</span><h1>在這裡可以先了解常見送花流程與注意事項</h1><p>如果你還在確認怎麼下單、需要準備哪些資訊，或想先了解不同情境的送花安排，可以先從這裡閱讀相關說明。</p></div></div></div></section>
+    <section class="page-hero"><div class="container"><div class="page-hero-panel"><div class="breadcrumbs"><a href="/">首頁</a><span>/</span><span>Blog</span></div><div class="page-hero-copy"><span class="eyebrow">送花指南</span><h1>越南送花指南：預訂流程、配送條件與花禮選擇</h1><p>從預訂流程、城市配送到不同場合的花禮，先了解需要準備的資料，再提供城市、日期與預算向客服詢問。</p></div></div></div></section>
     <section class="section-tight"><h2 class="sr-only">越南送花文章列表</h2><div class="container article-grid">${cards}</div></section>
-    <section class="section-tight"><div class="container"><div class="cta-band"><h2>看完文章後，可以回到服務頁確認實際下單方式</h2><p>如果你已經知道用途，可先看<a href="/services/">越南送花服務總覽</a>；若收件地點在胡志明市，建議查看<a href="/cities/ho-chi-minh/">胡志明市送花指南</a>；需求已經明確時，直接到<a href="/contact/">聯絡頁</a>提供城市、日期與預算。</p></div></div></section>
+    <section class="section-tight"><div class="container"><div class="cta-band"><h2>準備好城市、日期與預算，就能開始詢價</h2><p>如果你已經知道用途，可先看<a href="/services/">越南送花服務總覽</a>；若收件地點在胡志明市，建議查看<a href="/cities/ho-chi-minh/">胡志明市送花指南</a>；需求已經明確時，直接到<a href="/contact/">聯絡頁</a>提供城市、日期與預算。</p></div></div></section>
   </main>`,
   });
 }
@@ -460,12 +459,12 @@ function renderSitemap(posts) {
   const urls = [
     ...staticRoutes.map((route) => ({
       loc: absoluteUrl(route),
-      // 此次只更新作品頁及詢價清單，其他頁面保留既有更新日期。
-      lastmod: ["/gallery/", "/contact/"].includes(route) ? "2026-10-05" : SEO_RELEASE_DATE,
+      // 每頁實質內容異動時才更新 content/page-dates.json。
+      lastmod: PAGE_DATES[route],
     })),
     ...posts.map((post) => ({
       loc: post.canonical,
-      lastmod: post.updated > SEO_RELEASE_DATE ? post.updated : SEO_RELEASE_DATE,
+      lastmod: PAGE_DATES[post.url] || post.updated,
     })),
   ];
 
@@ -494,9 +493,17 @@ async function main() {
   const shellFiles = [...routes.map(pagePath), path.join(ROOT, "404.html")];
   for (const filePath of shellFiles) {
     const html = await readFile(filePath, "utf8");
-    const normalized = normalizeSiteShell(html);
+    const route = routes.find(candidate => pagePath(candidate) === filePath) || "/404.html";
+    let content = route === "/gallery/" ? normalizeCatalog(html) : html;
+    // 原生 details 讓常見問題在無 JavaScript 或腳本失敗時仍可閱讀。
+    content = content.replace(/<article class="faq-item">\s*<button class="faq-question"[^>]*>([\s\S]*?)<\/button>\s*<div class="faq-answer" hidden>([\s\S]*?)<\/div>\s*<\/article>/g,
+      (_match, question, answer) => `<details class="faq-item"><summary class="faq-question">${question.replace('class="faq-icon"', 'class="faq-icon" aria-hidden="true"')}</summary><div class="faq-answer">${answer}</div></details>`);
+    if (PAGE_DATES[route]) content = content.replace(/(<p class="updated-at">)最後更新：[^<]+/, `$1最後更新：${PAGE_DATES[route]}`);
+    if (route === "/contact/") content = content.replace(/data-work-codes="[^"]*"/, `data-work-codes="${workCodes.join(",")}"`);
+    content = normalizeMetadata(responsiveImages(content, route), route);
+    const normalized = normalizeSiteShell(content, route);
     if (
-      normalizeSiteShell(normalized) !== normalized
+      normalizeSiteShell(normalized, route) !== normalized
       || !normalized.includes('<footer class="site-footer">')
       || !normalized.includes('<nav class="floating-contact"')
     ) {
@@ -505,6 +512,21 @@ async function main() {
     await writeFile(filePath, normalized, "utf8");
   }
 
+  // 指紋資產只由內容決定，HTML 持續重新驗證，避免同名圖片/CSS更新後吃到舊快取。
+  const versionDir = path.join(ROOT, "assets", "versioned");
+  await mkdir(versionDir, { recursive: true });
+  for (const source of ["assets/css/main.css", "assets/js/main.js", "assets/js/gallery.js"]) {
+    const contents = await readFile(path.join(ROOT, source));
+    const hash = createHash("sha256").update(contents).digest("hex").slice(0, 12);
+    const ext = path.extname(source);
+    const name = `${path.basename(source, ext)}-${hash}${ext}`;
+    await writeFile(path.join(versionDir, name), contents);
+    const matcher = new RegExp(`/assets/(?:${ext === ".css" ? "css" : "js"}/${path.basename(source).replace(".", "\\.")}|versioned/${path.basename(source, ext)}-[a-f0-9]+\\${ext})`, "g");
+    for (const file of shellFiles) {
+      const html = await readFile(file, "utf8");
+      await writeFile(file, html.replace(matcher, `/assets/versioned/${name}`));
+    }
+  }
   console.log(`Generated ${posts.length} blog posts, sitemap, and normalized ${shellFiles.length} pages.`);
 }
 

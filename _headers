@@ -19,10 +19,15 @@
   ! Cache-Control
   Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
 
-/styles.css
+# 指紋檔名的資產內容不覆寫，可安全長期快取。
+/assets/versioned/*
   ! Cache-Control
-  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+  Cache-Control: public, max-age=31536000, immutable
 
-/script.js
+/images/responsive/*
   ! Cache-Control
-  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+  Cache-Control: public, max-age=31536000, immutable
+
+/images/social/*
+  ! Cache-Control
+  Cache-Control: public, max-age=31536000, immutable

@@ -1,0 +1,17 @@
+# 本機工作帳本，不納入版本控制。
+LEDGER.md
+dev-notes/ledger-archive/
+
+backups/
+
+dist/
+
+dev-notes/performance/
+
+dev-notes/release-manifest.json
+
+.playwright-cli/
+
+.dist-stage-*/
+.build-release.lock/
+dev-notes/browser/

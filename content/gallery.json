@@ -1,0 +1,1446 @@
+[
+  {
+    "id": "roses",
+    "name": "花束與配色",
+    "description": "查看紅色、粉白色、藍色玫瑰、繡球與綜合花束，從花色、花面及包裝比例挑選方向。",
+    "works": [
+      {
+        "id": "R040",
+        "title": "紅玫瑰・黑色包裝與紅緞帶",
+        "description": "紅色玫瑰搭配黑色多層包裝、紅色緞帶與祝福小卡，可參考紅黑配色。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r040.webp",
+            "full": "/images/gallery/2026/r040.webp",
+            "alt": "紅玫瑰・黑色包裝與紅緞帶",
+            "width": 960,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "R041",
+        "title": "淡粉玫瑰與滿天星・自然色包裝",
+        "description": "淡粉色玫瑰搭配白色滿天星與尤加利葉，使用自然色包裝及金黃色緞帶。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r041.webp",
+            "full": "/images/gallery/2026/r041.webp",
+            "alt": "淡粉玫瑰與滿天星・自然色包裝",
+            "width": 1067,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "R042",
+        "title": "紅玫瑰與尤加利・生日花束",
+        "description": "紅色玫瑰搭配尤加利葉、黑色包裝、紅色緞帶與生日字牌，可參考生日花束的配色。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r042.webp",
+            "full": "/images/gallery/2026/r042.webp",
+            "alt": "紅玫瑰與尤加利・生日花束",
+            "width": 968,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "B019",
+        "title": "向日葵與彩色花材・黑色包裝",
+        "description": "向日葵搭配粉色繡球、淡色玫瑰、藍白色花材與綠葉，使用黑色包裝及粉色緞帶。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/b019.webp",
+            "full": "/images/gallery/2026/b019.webp",
+            "alt": "向日葵與彩色花材・黑色包裝",
+            "width": 1179,
+            "height": 1403
+          }
+        ]
+      },
+      {
+        "id": "B020",
+        "title": "粉紫繡球與淡色玫瑰・白色包裝",
+        "description": "粉紫色與白色繡球搭配淡色玫瑰、小白花及藍色點綴，使用白色包裝和粉色緞帶。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/b020.webp",
+            "full": "/images/gallery/2026/b020.webp",
+            "alt": "粉紫繡球與淡色玫瑰・白色包裝",
+            "width": 1179,
+            "height": 1146
+          }
+        ]
+      },
+      {
+        "id": "R043",
+        "title": "珊瑚色玫瑰・黑色包裝",
+        "description": "珊瑚色玫瑰搭配細長綠葉與黑色層疊包裝，以粉色緞帶收束。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r043.webp",
+            "full": "/images/gallery/2026/r043.webp",
+            "alt": "珊瑚色玫瑰・黑色包裝",
+            "width": 1179,
+            "height": 1273
+          }
+        ]
+      },
+      {
+        "id": "R044",
+        "title": "紅玫瑰與尤加利・黑紅配色",
+        "description": "紅色玫瑰搭配尤加利葉與黑色包裝，使用紅色蝴蝶結及垂墜緞帶。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r044.webp",
+            "full": "/images/gallery/2026/r044.webp",
+            "alt": "紅玫瑰與尤加利・黑紅配色",
+            "width": 1179,
+            "height": 1114
+          }
+        ]
+      },
+      {
+        "id": "B018",
+        "title": "向日葵綜合花束・黑色包裝",
+        "description": "向日葵搭配粉色、奶油色與藍色花材，使用黑色多層包裝，可參考大花面的配色與層次。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/b018.webp",
+            "full": "/images/gallery/2026/b018.webp",
+            "alt": "向日葵綜合花束・黑色包裝",
+            "width": 966,
+            "height": 1600
+          }
+        ]
+      },
+      {
+        "id": "R039",
+        "title": "奶油色玫瑰・淡色網紗",
+        "description": "奶油色玫瑰搭配尤加利葉、白色包裝與淡色網紗蝴蝶結，可參考柔和的花面與包裝比例。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r039.webp",
+            "full": "/images/gallery/2026/r039.webp",
+            "alt": "奶油色玫瑰・淡色網紗",
+            "width": 1200,
+            "height": 1600
+          }
+        ]
+      },
+      {
+        "id": "R035",
+        "title": "淡粉玫瑰・粉色蝴蝶結",
+        "description": "淡粉玫瑰搭配白色滿天星、粉色包裝與蝴蝶結，可參考花面及包裝細節。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r035.webp",
+            "full": "/images/gallery/2026/r035.webp",
+            "alt": "淡粉玫瑰・粉色蝴蝶結",
+            "width": 869,
+            "height": 894
+          }
+        ]
+      },
+      {
+        "id": "R036",
+        "title": "粉玫瑰・白色展開包裝",
+        "description": "粉色玫瑰搭配細長綠葉與白色展開包裝，可參考高低錯落的花面。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r036.webp?v=6080fa221a8f",
+            "full": "/images/gallery/2026/r036.webp?v=6080fa221a8f",
+            "alt": "粉玫瑰・白色展開包裝",
+            "width": 902,
+            "height": 1600
+          }
+        ]
+      },
+      {
+        "id": "R037",
+        "title": "黃玫瑰・白金色包裝",
+        "description": "黃玫瑰搭配尤加利葉、白色小花與白金色包裝，使用白色緞帶收束。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r037.webp",
+            "full": "/images/gallery/2026/r037.webp",
+            "alt": "黃玫瑰・白金色包裝",
+            "width": 870,
+            "height": 1079
+          }
+        ]
+      },
+      {
+        "id": "R038",
+        "title": "紅玫瑰・黑色緞帶包裝",
+        "description": "紅玫瑰搭配尤加利葉與黑色包裝，以紅色緞帶呈現深色對比。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r038.webp",
+            "full": "/images/gallery/2026/r038.webp",
+            "alt": "紅玫瑰・黑色緞帶包裝",
+            "width": 870,
+            "height": 1158
+          }
+        ]
+      },
+      {
+        "id": "B017",
+        "title": "奶油粉綜合花束・自然色包裝",
+        "description": "奶油色與淡粉色花材搭配粉色圓形小花、自然色包裝及白色網紗，可參考柔和層次。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/b017.webp",
+            "full": "/images/gallery/2026/b017.webp",
+            "alt": "奶油粉綜合花束・自然色包裝",
+            "width": 831,
+            "height": 1109
+          }
+        ]
+      },
+      {
+        "id": "R022",
+        "title": "粉色玫瑰造型・層疊包裝",
+        "description": "粉色玫瑰造型花面搭配多層粉色包裝、緞帶與蝴蝶裝飾，可參考細密花面與柔和層次。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r022.webp?v=7d6c17026e28",
+            "full": "/images/gallery/2026/r022.webp?v=7d6c17026e28",
+            "alt": "粉色玫瑰造型・層疊包裝",
+            "width": 1086,
+            "height": 1448
+          }
+        ]
+      },
+      {
+        "id": "R023",
+        "title": "大型紅玫瑰・黑色包裝",
+        "description": "大面積紅玫瑰搭配黑色包裝與紅色緞帶，可參考深色包裝及大型花面比例。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r023.webp",
+            "full": "/images/gallery/2026/r023.webp",
+            "alt": "大型紅玫瑰・黑色包裝",
+            "width": 722,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "R024",
+        "title": "粉白玫瑰・金色包裝",
+        "description": "粉白玫瑰搭配金色包裝與粉色蝴蝶結，可參考小花束的柔和配色。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r024.webp",
+            "full": "/images/gallery/2026/r024.webp",
+            "alt": "粉白玫瑰・金色包裝",
+            "width": 721,
+            "height": 1600
+          }
+        ]
+      },
+      {
+        "id": "B009",
+        "title": "向日葵與淡色玫瑰",
+        "description": "向日葵搭配淡色玫瑰、綠葉與米色包裝，以金棕色緞帶收束，呈現明亮配色。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/b009.webp",
+            "full": "/images/gallery/2026/b009.webp",
+            "alt": "向日葵與淡色玫瑰",
+            "width": 1036,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "R025",
+        "title": "淺藍玫瑰・黑色層次包裝",
+        "description": "淺藍玫瑰搭配綠葉及多層黑色包裝，可參考花面與深色包裝的對比。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r025.webp",
+            "full": "/images/gallery/2026/r025.webp",
+            "alt": "淺藍玫瑰・黑色層次包裝",
+            "width": 720,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "R026",
+        "title": "淡粉玫瑰・自然綠葉",
+        "description": "淡粉玫瑰搭配高低錯落的綠葉與小白花，使用粉色包裝和白色網紗。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r026.webp",
+            "full": "/images/gallery/2026/r026.webp",
+            "alt": "淡粉玫瑰・自然綠葉",
+            "width": 949,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "B010",
+        "title": "粉紫百合・白綠綜合花束",
+        "description": "粉紫色百合搭配淡色花材與延伸枝葉，使用白色包裝及綠色緞帶。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/b010.webp?v=a0777c3272d7",
+            "full": "/images/gallery/2026/b010.webp?v=a0777c3272d7",
+            "alt": "粉紫百合・白綠綜合花束",
+            "width": 901,
+            "height": 1600
+          }
+        ]
+      },
+      {
+        "id": "B011",
+        "title": "向日葵・粉色綜合花束",
+        "description": "向日葵與粉色、奶油色花材搭配白色包裝，可參考多色花面的明亮層次。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/b011.webp?v=1d1bd042e2de",
+            "full": "/images/gallery/2026/b011.webp?v=1d1bd042e2de",
+            "alt": "向日葵・粉色綜合花束",
+            "width": 901,
+            "height": 1600
+          }
+        ]
+      },
+      {
+        "id": "R027",
+        "title": "玫瑰造型・淡紫網紗",
+        "description": "玫瑰造型花面搭配淡紫色包裝、白色網紗及蝴蝶結，可參考圓形花面與包裝比例。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r027.webp?v=4cf382bb6955",
+            "full": "/images/gallery/2026/r027.webp?v=4cf382bb6955",
+            "alt": "玫瑰造型・淡紫網紗",
+            "width": 1156,
+            "height": 1361
+          }
+        ]
+      },
+      {
+        "id": "R028",
+        "title": "粉色玫瑰造型・圓形緞帶",
+        "description": "密集的粉色玫瑰造型搭配白粉色包裝、緞帶與中央裝飾，可參考圓形花束風格。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r028.webp?v=0f6d6e8e3372",
+            "full": "/images/gallery/2026/r028.webp?v=0f6d6e8e3372",
+            "alt": "粉色玫瑰造型・圓形緞帶",
+            "width": 1146,
+            "height": 1373
+          }
+        ]
+      },
+      {
+        "id": "R029",
+        "title": "桃粉玫瑰・白色包裝",
+        "description": "桃粉色玫瑰形成圓形花面，搭配白色包裝與垂墜粉色緞帶。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r029.webp?v=587f50b99e05",
+            "full": "/images/gallery/2026/r029.webp?v=587f50b99e05",
+            "alt": "桃粉玫瑰・白色包裝",
+            "width": 1086,
+            "height": 1448
+          }
+        ]
+      },
+      {
+        "id": "B012",
+        "title": "粉白綜合花束・白色蘭花",
+        "description": "粉色玫瑰與其他淡色花材搭配白色蘭花，使用粉白色包裝，呈現柔和花面。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/b012.webp",
+            "full": "/images/gallery/2026/b012.webp",
+            "alt": "粉白綜合花束・白色蘭花",
+            "width": 963,
+            "height": 1284
+          }
+        ]
+      },
+      {
+        "id": "B013",
+        "title": "大型粉色綜合花束・蕾絲包裝",
+        "description": "粉色與奶油色花材搭配藍色點綴、延伸綠葉與蕾絲感包裝，提供不同角度參考。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/b013.webp?v=4de3a482fc46",
+            "full": "/images/gallery/2026/b013.webp?v=4de3a482fc46",
+            "alt": "大型粉色綜合花束・蕾絲包裝",
+            "width": 1086,
+            "height": 1448
+          },
+          {
+            "src": "/images/gallery/2026/b013-angle-2.webp",
+            "full": "/images/gallery/2026/b013-angle-2.webp",
+            "alt": "大型粉色綜合花束・蕾絲包裝・另一角度",
+            "width": 960,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "B014",
+        "title": "粉白綜合花束・綠色點綴",
+        "description": "粉白色花材搭配綠色花朵、細長枝葉與自然色包裝，可參考層次豐富的花面。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/b014.webp?v=b7b85f03d8d0",
+            "full": "/images/gallery/2026/b014.webp?v=b7b85f03d8d0",
+            "alt": "粉白綜合花束・綠色點綴",
+            "width": 1086,
+            "height": 1448
+          }
+        ]
+      },
+      {
+        "id": "B015",
+        "title": "粉色綜合花束・多層粉包裝",
+        "description": "粉色圓形花材、非洲菊與淡色玫瑰搭配多層粉色包裝，可參考花面與包裝比例。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/b015.webp",
+            "full": "/images/gallery/2026/b015.webp",
+            "alt": "粉色綜合花束・多層粉包裝",
+            "width": 1008,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "R030",
+        "title": "紅玫瑰與尤加利・白色網紗",
+        "description": "紅玫瑰搭配尤加利葉、白色包裝及網紗，以紅色緞帶呈現醒目對比。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r030.webp?v=2f9b5d24b4cb",
+            "full": "/images/gallery/2026/r030.webp?v=2f9b5d24b4cb",
+            "alt": "紅玫瑰與尤加利・白色網紗",
+            "width": 1094,
+            "height": 1438
+          }
+        ]
+      },
+      {
+        "id": "R031",
+        "title": "奶油色玫瑰・白色網紗",
+        "description": "奶油色玫瑰搭配尤加利葉及小白花，使用白色包裝與網紗蝴蝶結。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r031.webp?v=060ba262c788",
+            "full": "/images/gallery/2026/r031.webp?v=060ba262c788",
+            "alt": "奶油色玫瑰・白色網紗",
+            "width": 1082,
+            "height": 1453
+          }
+        ]
+      },
+      {
+        "id": "R032",
+        "title": "淡粉玫瑰・粉色緞帶包裝",
+        "description": "淡粉色玫瑰搭配滿天星、粉色包裝與緞帶，提供正面與側面細節參考。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r032.webp",
+            "full": "/images/gallery/2026/r032.webp",
+            "alt": "淡粉玫瑰・粉色緞帶包裝",
+            "width": 1201,
+            "height": 1600
+          },
+          {
+            "src": "/images/gallery/2026/r032-angle-2.webp",
+            "full": "/images/gallery/2026/r032-angle-2.webp",
+            "alt": "淡粉玫瑰・粉色緞帶包裝・另一角度",
+            "width": 720,
+            "height": 1600
+          }
+        ]
+      },
+      {
+        "id": "R033",
+        "title": "淡色玫瑰・粉白包裝",
+        "description": "淡色玫瑰搭配小白花與綠葉，使用粉白色包裝和網紗蝴蝶結。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r033.webp",
+            "full": "/images/gallery/2026/r033.webp",
+            "alt": "淡色玫瑰・粉白包裝",
+            "width": 960,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "B016",
+        "title": "粉藍雙色玫瑰・綜合花束",
+        "description": "粉色、奶油色與粉藍雙色玫瑰搭配非洲菊、小白花及白色包裝，呈現多彩花面。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/b016.webp",
+            "full": "/images/gallery/2026/b016.webp",
+            "alt": "粉藍雙色玫瑰・綜合花束",
+            "width": 1179,
+            "height": 1403
+          }
+        ]
+      },
+      {
+        "id": "R034",
+        "title": "淡粉玫瑰與滿天星・粉色包裝",
+        "description": "淡粉玫瑰搭配滿天星與尤加利葉，使用粉色多層包裝，可參考柔和的花面與比例。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r034.webp",
+            "full": "/images/gallery/2026/r034.webp",
+            "alt": "淡粉玫瑰與滿天星・粉色包裝",
+            "width": 960,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "R003",
+        "title": "藍白玫瑰・黑色包裝",
+        "description": "藍白色玫瑰搭配綠葉與黑色包裝，可參考藍色花面及深色包裝的對比。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r003.webp",
+            "full": "/images/gallery/2026/r003.webp",
+            "alt": "藍白玫瑰・黑色包裝",
+            "width": 960,
+            "height": 723
+          }
+        ]
+      },
+      {
+        "id": "R004",
+        "title": "粉白玫瑰・白色包裝",
+        "description": "淡粉與白色玫瑰搭配綠葉，使用白色包裝和米色緞帶，呈現柔和配色。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r004.webp",
+            "full": "/images/gallery/2026/r004.webp",
+            "alt": "粉白玫瑰・白色包裝",
+            "width": 1280,
+            "height": 1176
+          }
+        ]
+      },
+      {
+        "id": "R005",
+        "title": "大型粉色玫瑰・粉色包裝",
+        "description": "圓形玫瑰花面搭配多層粉色包裝與垂墜緞帶，可參考大型花束的整體比例。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r005.webp",
+            "full": "/images/gallery/2026/r005.webp",
+            "alt": "大型粉色玫瑰・粉色包裝",
+            "width": 720,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "R006",
+        "title": "粉白玫瑰・雙色粉包裝",
+        "description": "淡粉玫瑰搭配白色小花與綠葉，以深淺粉色包裝和蝴蝶結呈現層次。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r006.webp",
+            "full": "/images/gallery/2026/r006.webp",
+            "alt": "粉白玫瑰・雙色粉包裝",
+            "width": 1286,
+            "height": 1201
+          }
+        ]
+      },
+      {
+        "id": "B002",
+        "title": "白綠繡球花束・白色包裝",
+        "description": "白綠色繡球搭配小白花與綠葉，使用白色包裝和緞帶，可參考清爽的配色。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/b002.webp",
+            "full": "/images/gallery/2026/b002.webp",
+            "alt": "白綠繡球花束・白色包裝",
+            "width": 600,
+            "height": 600
+          }
+        ]
+      },
+      {
+        "id": "R007",
+        "title": "淡粉玫瑰・金棕色包裝",
+        "description": "淡粉玫瑰搭配白色小花，以金棕色包裝及粉色緞帶呈現溫暖風格。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r007.webp",
+            "full": "/images/gallery/2026/r007.webp",
+            "alt": "淡粉玫瑰・金棕色包裝",
+            "width": 1005,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "B003",
+        "title": "粉橘綜合花束・白色包裝",
+        "description": "粉色與橘色花材搭配細長枝葉及白色包裝，可參考自然展開的花面。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/b003.webp",
+            "full": "/images/gallery/2026/b003.webp",
+            "alt": "粉橘綜合花束・白色包裝",
+            "width": 1006,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "B004",
+        "title": "粉藍綜合花束・粉色包裝",
+        "description": "粉色花材搭配藍色繡球、綠葉與粉色包裝，呈現柔和而多彩的花面。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/b004.webp",
+            "full": "/images/gallery/2026/b004.webp",
+            "alt": "粉藍綜合花束・粉色包裝",
+            "width": 1004,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "R008",
+        "title": "紅玫瑰・白色圓形包裝",
+        "description": "集中排列的紅玫瑰搭配白色包裝與紅色緞帶，可參考醒目的紅白對比。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r008.webp?v=b58aa34a6f48",
+            "full": "/images/gallery/2026/r008.webp?v=b58aa34a6f48",
+            "alt": "紅玫瑰・白色圓形包裝",
+            "width": 1086,
+            "height": 1448
+          }
+        ]
+      },
+      {
+        "id": "R009",
+        "title": "紅玫瑰・黑色網紗包裝",
+        "description": "紅玫瑰搭配報紙風格襯紙、黑色包裝及網紗，可參考較俐落的風格。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r009.webp",
+            "full": "/images/gallery/2026/r009.webp",
+            "alt": "紅玫瑰・黑色網紗包裝",
+            "width": 976,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "R010",
+        "title": "紅玫瑰與滿天星・白色包裝",
+        "description": "紅玫瑰搭配白色滿天星、綠葉與白色網紗，呈現豐富的花面層次。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r010.webp",
+            "full": "/images/gallery/2026/r010.webp",
+            "alt": "紅玫瑰與滿天星・白色包裝",
+            "width": 1290,
+            "height": 1259
+          }
+        ]
+      },
+      {
+        "id": "R011",
+        "title": "紅玫瑰・米色與紅色網紗",
+        "description": "紅玫瑰與小白花搭配米色包裝、紅色網紗及緞帶，可參考暖色系的搭配。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r011.webp",
+            "full": "/images/gallery/2026/r011.webp",
+            "alt": "紅玫瑰・米色與紅色網紗",
+            "width": 952,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "B005",
+        "title": "粉綠綜合花束・粉白包裝",
+        "description": "粉色、白色與綠色花材搭配粉白色多層包裝，可參考明亮的綜合花束。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/b005.webp",
+            "full": "/images/gallery/2026/b005.webp",
+            "alt": "粉綠綜合花束・粉白包裝",
+            "width": 1039,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "R012",
+        "title": "粉玫瑰與滿天星・白色網紗",
+        "description": "粉玫瑰搭配滿天星、綠葉及白色網紗蝴蝶結，適合參考柔和的花面。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r012.webp",
+            "full": "/images/gallery/2026/r012.webp",
+            "alt": "粉玫瑰與滿天星・白色網紗",
+            "width": 1130,
+            "height": 1452
+          }
+        ]
+      },
+      {
+        "id": "R013",
+        "title": "粉玫瑰・黑色包裝",
+        "description": "淡粉色圓形玫瑰花面搭配黑色包裝與粉色緞帶，可參考大花面及深色對比。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r013.webp",
+            "full": "/images/gallery/2026/r013.webp",
+            "alt": "粉玫瑰・黑色包裝",
+            "width": 720,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "R014",
+        "title": "霧藍玫瑰・灰藍包裝",
+        "description": "霧藍色玫瑰搭配綠色配花、灰藍色包裝與白色網紗，可參考同色系設計。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r014.webp",
+            "full": "/images/gallery/2026/r014.webp",
+            "alt": "霧藍玫瑰・灰藍包裝",
+            "width": 945,
+            "height": 908
+          }
+        ]
+      },
+      {
+        "id": "B006",
+        "title": "大型粉色花束・白色包裝",
+        "description": "粉色玫瑰與其他粉色花材形成大型圓形花面，搭配白色包裝與垂墜緞帶。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/b006.webp",
+            "full": "/images/gallery/2026/b006.webp",
+            "alt": "大型粉色花束・白色包裝",
+            "width": 963,
+            "height": 1284
+          },
+          {
+            "src": "/images/gallery/2026/b006-angle-2.webp",
+            "full": "/images/gallery/2026/b006-angle-2.webp",
+            "alt": "粉白玫瑰與綠葉・另一角度",
+            "width": 963,
+            "height": 1284
+          }
+        ]
+      },
+      {
+        "id": "B007",
+        "title": "粉白綜合花束・自然枝葉",
+        "description": "粉白色花材與白綠色繡球搭配延伸枝葉，可參考較自然、展開的花束輪廓。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/b007.webp",
+            "full": "/images/gallery/2026/b007.webp",
+            "alt": "粉白綜合花束・自然枝葉",
+            "width": 960,
+            "height": 1040
+          }
+        ]
+      },
+      {
+        "id": "R015",
+        "title": "紅玫瑰・粉米色包裝",
+        "description": "紅玫瑰搭配白色小花、綠葉與粉米色包裝，以紅色緞帶點綴。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r015.webp",
+            "full": "/images/gallery/2026/r015.webp",
+            "alt": "紅玫瑰・粉米色包裝",
+            "width": 956,
+            "height": 1276
+          }
+        ]
+      },
+      {
+        "id": "B008",
+        "title": "粉紫綜合花束・米色包裝",
+        "description": "粉紫色圓形花材、粉色非洲菊與淡色玫瑰搭配米色包裝，呈現多層次花面。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/b008.webp",
+            "full": "/images/gallery/2026/b008.webp",
+            "alt": "粉紫綜合花束・米色包裝",
+            "width": 960,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "R016",
+        "title": "粉玫瑰與尤加利・粉色包裝",
+        "description": "粉玫瑰搭配尤加利葉及粉白色包裝，可參考玫瑰與綠葉的比例。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r016.webp",
+            "full": "/images/gallery/2026/r016.webp",
+            "alt": "粉玫瑰與尤加利・粉色包裝",
+            "width": 1019,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "R017",
+        "title": "大型粉玫瑰・白色包裝",
+        "description": "大型粉色玫瑰花面搭配層疊白色包裝與長緞帶，尺寸與花量需另行確認。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r017.webp",
+            "full": "/images/gallery/2026/r017.webp",
+            "alt": "大型粉玫瑰・白色包裝",
+            "width": 720,
+            "height": 790
+          }
+        ]
+      },
+      {
+        "id": "R018",
+        "title": "淡粉玫瑰・粉色網紗",
+        "description": "淡粉玫瑰搭配小白花、綠葉及粉色包裝，使用白色網紗蝴蝶結收束。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r018.webp",
+            "full": "/images/gallery/2026/r018.webp",
+            "alt": "淡粉玫瑰・粉色網紗",
+            "width": 719,
+            "height": 960
+          }
+        ]
+      },
+      {
+        "id": "R019",
+        "title": "淡色玫瑰・粉米色長包裝",
+        "description": "淡粉與奶油色玫瑰搭配尤加利葉及粉米色包裝，可參考較修長的花束比例。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r019.webp",
+            "full": "/images/gallery/2026/r019.webp",
+            "alt": "淡色玫瑰・粉米色長包裝",
+            "width": 963,
+            "height": 1284
+          }
+        ]
+      },
+      {
+        "id": "R020",
+        "title": "粉白玫瑰・粉藍包裝",
+        "description": "粉白色玫瑰搭配綠葉與粉藍色包裝，可參考多層包裝及柔和配色。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r020.webp",
+            "full": "/images/gallery/2026/r020.webp",
+            "alt": "粉白玫瑰・粉藍包裝",
+            "width": 768,
+            "height": 1024
+          }
+        ]
+      },
+      {
+        "id": "R021",
+        "title": "紅玫瑰與滿天星・粉色包裝",
+        "description": "紅玫瑰搭配滿天星與綠葉，使用粉色包裝及緞帶，呈現浪漫的紅粉配色。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r021.webp",
+            "full": "/images/gallery/2026/r021.webp",
+            "alt": "紅玫瑰與滿天星・粉色包裝",
+            "width": 717,
+            "height": 957
+          }
+        ]
+      },
+      {
+        "id": "B001",
+        "title": "白綠色花束・黑色包裝",
+        "description": "白綠色繡球花面搭配小白花與黑色包裝，適合參考清爽色系和圓形花面。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/b001.webp",
+            "full": "/images/gallery/2026/b001.webp",
+            "alt": "白綠色花束・黑色包裝",
+            "width": 578,
+            "height": 650
+          }
+        ]
+      },
+      {
+        "id": "R001",
+        "title": "紅玫瑰花束・黑色包裝",
+        "description": "兩束紅玫瑰搭配黑色包裝與紅色緞帶，適合參考花面、包裝對比與整體比例。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/workshop-red-rose-bouquets.jpg",
+            "full": "/images/gallery/2026/workshop-red-rose-bouquets.jpg",
+            "alt": "紅玫瑰花束・黑色包裝",
+            "width": 1280,
+            "height": 720
+          }
+        ]
+      },
+      {
+        "id": "R002",
+        "title": "淡粉與奶油色玫瑰・款式參考",
+        "description": "淡粉玫瑰搭配奶油色花面、米色包裝與緞帶，可作為配色與包裝方向參考。",
+        "kind": "款式參考圖",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/r002.webp",
+            "full": "/images/gallery/2026/r002.webp",
+            "alt": "淡粉與奶油色玫瑰・款式參考",
+            "width": 1024,
+            "height": 1536
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "vase-arrangements",
+    "name": "瓶插花禮",
+    "description": "參考花器、花面與綠葉的搭配，實際尺寸與用途由客服協助確認。",
+    "works": [
+      {
+        "id": "V001",
+        "title": "紅玫瑰瓶插・黑色花器",
+        "description": "紅玫瑰搭配綠葉與黑色花器，可參考桌面花禮的花面與花器比例。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/v001.webp",
+            "full": "/images/gallery/2026/v001.webp",
+            "alt": "紅玫瑰瓶插・黑色花器",
+            "width": 960,
+            "height": 1280
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "money-bouquets",
+    "name": "鈔票花束",
+    "description": "參考扇形、圓形與小卡搭配；幣別、金額及製作費用需另行確認。",
+    "works": [
+      {
+        "id": "M011",
+        "title": "扇形鈔票花束・珊瑚粉包裝",
+        "description": "鈔票以扇形展開，搭配粉色花材、珊瑚粉包裝與大蝴蝶結；幣別、金額與製作費需另行確認。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/m011.webp",
+            "full": "/images/gallery/2026/m011.webp",
+            "alt": "扇形鈔票花束・珊瑚粉包裝",
+            "width": 963,
+            "height": 1284
+          }
+        ]
+      },
+      {
+        "id": "M012",
+        "title": "鈔票與粉白花朵・薄荷白包裝",
+        "description": "鈔票搭配粉白色花朵、生日字牌與白色網紗，使用淡綠色與白色包裝；幣別、金額與製作費需另行確認。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/m012.webp",
+            "full": "/images/gallery/2026/m012.webp",
+            "alt": "鈔票與粉白花朵・薄荷白包裝",
+            "width": 960,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "M010",
+        "title": "粉色鈔票花束・白色層疊包裝",
+        "description": "鈔票造型與粉色花朵搭配粉色小緞帶、白色層疊包裝及大蝴蝶結；幣別、金額與製作方式需另行確認。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/m010.webp",
+            "full": "/images/gallery/2026/m010.webp",
+            "alt": "粉色鈔票花束・白色層疊包裝",
+            "width": 903,
+            "height": 1600
+          }
+        ]
+      },
+      {
+        "id": "M007",
+        "title": "鈔票花束・圓形滿天星",
+        "description": "鈔票折成花瓣排列成圓形，周圍搭配白色滿天星與粉色多層包裝；幣別、金額與製作方式需另行確認。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/m007.webp",
+            "full": "/images/gallery/2026/m007.webp",
+            "alt": "鈔票花束・圓形滿天星",
+            "width": 963,
+            "height": 1284
+          }
+        ]
+      },
+      {
+        "id": "M008",
+        "title": "鈔票與粉玫瑰・扇形排列",
+        "description": "鈔票以扇形排列，搭配粉色花朵與白色網紗，可參考粉色花束的層次；幣別與金額需另行確認。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/m008.webp",
+            "full": "/images/gallery/2026/m008.webp",
+            "alt": "鈔票與粉玫瑰・扇形排列",
+            "width": 720,
+            "height": 960
+          }
+        ]
+      },
+      {
+        "id": "M009",
+        "title": "鈔票與紅玫瑰・紫色包裝",
+        "description": "鈔票造型與紅色、粉色花朵分區配置，搭配小白花和紫色多層包裝；幣別與金額需另行確認。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/m009.webp",
+            "full": "/images/gallery/2026/m009.webp",
+            "alt": "鈔票與紅玫瑰・紫色包裝",
+            "width": 960,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "M001",
+        "title": "鈔票花束・粉色包裝",
+        "description": "鈔票以扇形排列，搭配粉色小花、粉白色包裝與網紗蝴蝶結。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/IMG_4860.JPG",
+            "full": "/images/IMG_4860.JPG",
+            "alt": "鈔票花束・粉色包裝",
+            "width": 960,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "M002",
+        "title": "鈔票花束・扇形設計",
+        "description": "扇形鈔票排列搭配粉色小花與大蝴蝶結，適合參考展開的花面比例。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/IMG_4865.JPG",
+            "full": "/images/IMG_4865.JPG",
+            "alt": "鈔票花束・扇形設計",
+            "width": 1536,
+            "height": 2048
+          }
+        ]
+      },
+      {
+        "id": "M003",
+        "title": "鈔票花束・愛心小卡",
+        "description": "粉色包裝中搭配鈔票花瓣、中央紅玫瑰、白色小花與愛心小卡。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/blog/2026/vietnam-flower-delivery-anh-yeu-em/anhWei-yeu-em.jpg",
+            "full": "/images/blog/2026/vietnam-flower-delivery-anh-yeu-em/anhWei-yeu-em.jpg",
+            "alt": "鈔票花束・愛心小卡",
+            "width": 1033,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "M004",
+        "title": "鈔票花束・圓形花面",
+        "description": "圓形鈔票花瓣搭配粉色花朵字樣與紅粉色包裝，可參考圓形花面的層次。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/IMG_0980.JPG",
+            "full": "/images/IMG_0980.JPG",
+            "alt": "鈔票花束・圓形花面",
+            "width": 956,
+            "height": 1276
+          }
+        ]
+      },
+      {
+        "id": "M005",
+        "title": "鈔票花束・粉色花瓣層次",
+        "description": "鈔票折成花瓣，搭配中央紅色花朵、白色小花與粉色包裝，適合參考圓形層次。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/m005.webp",
+            "full": "/images/gallery/2026/m005.webp",
+            "alt": "鈔票花束・粉色花瓣層次",
+            "width": 1280,
+            "height": 1148
+          }
+        ]
+      },
+      {
+        "id": "M006",
+        "title": "鈔票花束・摺扇花面",
+        "description": "鈔票摺成扇形花瓣，排列成圓形花面，搭配粉色包裝與垂墜緞帶。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/m006.webp",
+            "full": "/images/gallery/2026/m006.webp",
+            "alt": "鈔票花束・摺扇花面",
+            "width": 960,
+            "height": 1280
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fruit-baskets",
+    "name": "水果與花果禮籃",
+    "description": "查看水果、花材、籃身與緞帶的搭配，內容物、份量與配送條件需先詢問。",
+    "works": [
+      {
+        "id": "F013",
+        "title": "紅色大型花果禮籃",
+        "description": "紅色與白色花材配置在水果兩側，搭配紅色籃身及大蝴蝶結，可參考寬版花果禮籃。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/f013.webp",
+            "full": "/images/gallery/2026/f013.webp",
+            "alt": "紅色大型花果禮籃",
+            "width": 1200,
+            "height": 1600
+          }
+        ]
+      },
+      {
+        "id": "F014",
+        "title": "粉色百合與水果禮籃",
+        "description": "粉色百合與其他粉色花材搭配水果、粉色網紗與緞帶，可參考一側花材、一側水果的配置。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/f014.webp",
+            "full": "/images/gallery/2026/f014.webp",
+            "alt": "粉色百合與水果禮籃",
+            "width": 1200,
+            "height": 1600
+          }
+        ]
+      },
+      {
+        "id": "F015",
+        "title": "綠色水果禮籃・緞帶提把",
+        "description": "以水果為主體，搭配綠色籃身、提把及大蝴蝶結，可參考自然色系包裝。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/f015.webp",
+            "full": "/images/gallery/2026/f015.webp",
+            "alt": "綠色水果禮籃・緞帶提把",
+            "width": 1200,
+            "height": 1600
+          }
+        ]
+      },
+      {
+        "id": "F016",
+        "title": "黃白花材・綠色花果禮籃",
+        "description": "黃白色花材與綠色點綴搭配水果，使用綠色籃身與緞帶，可參考自然清爽的搭配。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/f016.webp",
+            "full": "/images/gallery/2026/f016.webp",
+            "alt": "黃白花材・綠色花果禮籃",
+            "width": 1200,
+            "height": 1600
+          }
+        ]
+      },
+      {
+        "id": "F001",
+        "title": "白色花材與水果禮籃",
+        "description": "白色花材與多款水果搭配白色緞帶、米白色網紗，適合參考柔和的禮籃配色。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/f001.webp",
+            "full": "/images/gallery/2026/f001.webp",
+            "alt": "白色花材與水果禮籃",
+            "width": 1200,
+            "height": 1600
+          }
+        ]
+      },
+      {
+        "id": "F002",
+        "title": "粉色花材與水果禮籃",
+        "description": "粉色花材集中於一側，水果排列於另一側，搭配粉色提把與蝴蝶結。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/f002.webp",
+            "full": "/images/gallery/2026/f002.webp",
+            "alt": "粉色花材與水果禮籃",
+            "width": 1200,
+            "height": 1600
+          }
+        ]
+      },
+      {
+        "id": "F003",
+        "title": "米白色水果禮籃",
+        "description": "以水果為主體，搭配米白色籃身、提把與網紗，呈現簡潔的送禮風格。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/f003.webp",
+            "full": "/images/gallery/2026/f003.webp",
+            "alt": "米白色水果禮籃",
+            "width": 1200,
+            "height": 1600
+          }
+        ]
+      },
+      {
+        "id": "F004",
+        "title": "粉紫色花材與水果禮籃",
+        "description": "粉色百合與多色花材搭配水果，使用紫色籃身、網紗與緞帶。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/f004.webp",
+            "full": "/images/gallery/2026/f004.webp",
+            "alt": "粉紫色花材與水果禮籃",
+            "width": 1200,
+            "height": 1600
+          }
+        ]
+      },
+      {
+        "id": "F005",
+        "title": "黃色花材與水果禮籃",
+        "description": "粉色、橘色與白色花材搭配水果，以黃色籃身及網紗帶出明亮風格。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/f005.webp",
+            "full": "/images/gallery/2026/f005.webp",
+            "alt": "黃色花材與水果禮籃",
+            "width": 1200,
+            "height": 1600
+          }
+        ]
+      },
+      {
+        "id": "F006",
+        "title": "粉色大型花果禮籃",
+        "description": "左右兩側花材圍繞水果，搭配粉色籃身與緞帶，可參考較寬的花果配置。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/f006.webp",
+            "full": "/images/gallery/2026/f006.webp",
+            "alt": "粉色大型花果禮籃",
+            "width": 1200,
+            "height": 1600
+          }
+        ]
+      },
+      {
+        "id": "F007",
+        "title": "綠色花材與水果禮籃",
+        "description": "黃白色花材、綠色小花與水果，搭配綠色網紗及緞帶，呈現自然配色。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/f007.webp",
+            "full": "/images/gallery/2026/f007.webp",
+            "alt": "綠色花材與水果禮籃",
+            "width": 1200,
+            "height": 1600
+          }
+        ]
+      },
+      {
+        "id": "F008",
+        "title": "黃色水果禮籃・同色緞帶",
+        "description": "水果搭配黃色籃身、網紗與同色蝴蝶結，適合參考明亮且一致的包裝。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/f008.webp",
+            "full": "/images/gallery/2026/f008.webp",
+            "alt": "黃色水果禮籃・同色緞帶",
+            "width": 1200,
+            "height": 1600
+          }
+        ]
+      },
+      {
+        "id": "F009",
+        "title": "黃色水果禮籃・紅色緞帶",
+        "description": "多款水果搭配黃色籃身與紅色大蝴蝶結，以對比配色呈現祝福感。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/f009.webp",
+            "full": "/images/gallery/2026/f009.webp",
+            "alt": "黃色水果禮籃・紅色緞帶",
+            "width": 1200,
+            "height": 1600
+          }
+        ]
+      },
+      {
+        "id": "F010",
+        "title": "紅色水果禮籃",
+        "description": "水果搭配紅色提把、網紗與緞帶，適合參考紅色系的送禮包裝。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/f010.webp",
+            "full": "/images/gallery/2026/f010.webp",
+            "alt": "紅色水果禮籃",
+            "width": 1200,
+            "height": 1600
+          }
+        ]
+      },
+      {
+        "id": "F011",
+        "title": "綠色水果禮籃・白色襯紙",
+        "description": "以水果為主體，搭配綠色籃身、大蝴蝶結與白色襯紙，可參考自然色系。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/f011.webp",
+            "full": "/images/gallery/2026/f011.webp",
+            "alt": "綠色水果禮籃・白色襯紙",
+            "width": 1200,
+            "height": 1600
+          }
+        ]
+      },
+      {
+        "id": "F012",
+        "title": "米白色花材與水果禮籃",
+        "description": "黃白色花材與水果搭配米白色籃身及金色緞帶，可參考溫暖的送禮色系。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/f012.webp",
+            "full": "/images/gallery/2026/f012.webp",
+            "alt": "米白色花材與水果禮籃",
+            "width": 1200,
+            "height": 1600
+          }
+        ]
+      }
+    ]
+  }
+]

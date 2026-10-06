@@ -3,7 +3,7 @@ title: 越南生日送花流程
 description: 從台灣下單到越南收花的完整生日送花指南。
 slug: vietnam-birthday-flower-guide
 date: 2026-04-22
-updated: 2026-09-30
+updated: 2026-10-06
 category: 生日花束
 heroImage: /images/gallery/2026/b001.webp
 heroAlt: 白綠色花束・黑色包裝
@@ -30,6 +30,6 @@ cardImageHeight: 650
 
 若是當日件、晚間時段、飯店或高樓住宅，務必先確認現場收件規則，避免花束送達時無人可接收。若收件地點在胡志明市，也建議一起看[胡志明市送花指南](/cities/ho-chi-minh/)。
 
-## 文章負責準備，交易請回服務頁
+## 資料整理好後，再到服務頁詢價
 
 當你已經把城市、日期與預算整理好，再前往[生日花束代訂頁](/services/birthday-flowers-vietnam/)會更有效率。
