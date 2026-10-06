@@ -18,7 +18,7 @@ export function responsiveImages(html, route) {
   return html.replace(/<picture>\s*<source[^>]+>\s*(<img[^>]+>)\s*<\/picture>/g, '$1').replace(/<img\b([^>]+)>/g, (tag, attrs) => {
     const fields = Object.fromEntries([...attrs.matchAll(/([\w-]+)="([^"]*)"/g)].map(m => [m[1], m[2]]));
     let source = fields['data-image-source'] || fields.src;
-    if (fields.fetchpriority === 'high' && source === '/images/gallery/2026/b001.webp' && route !== '/gallery/') {
+    if (fields.fetchpriority === 'high' && source === '/images/gallery/2026/b001.webp' && !route.startsWith('/gallery/')) {
       // 大型主視覺改用既有高解析實拍；作品 B001 本身保留原圖與原編號。
       source = '/images/gallery/2026/r039.webp';
       fields.alt = '奶油色玫瑰・淡色網紗';
@@ -41,10 +41,10 @@ export function responsiveImages(html, route) {
   });
 }
 
-export function renderCatalog() {
-  return catalog.map(group => `<section class="section-tight portfolio-section" id="${group.id}" aria-labelledby="${group.id}-title"><div class="container"><div class="section-heading"><h2 id="${group.id}-title">${escape(group.name)}</h2><p>${escape(group.description)}</p></div><div class="case-gallery-grid">${group.works.map((work, index) => {
-    const photo = (image, first) => `<a href="${escape(image.full)}" target="_blank" rel="noopener" aria-label="放大作品 ${work.id}：${escape(image.alt)}"><img src="${escape(image.src)}" alt="${escape(image.alt)}" width="${image.width}" height="${image.height}" loading="${first && group.id === 'roses' && index === 0 ? 'eager' : 'lazy'}" decoding="async"${first && group.id === 'roses' && index === 0 ? ' fetchpriority="high"' : ''}></a>`;
-    return `<article class="case-card portfolio-work" id="work-${work.id}">${photo(work.photos[0], true)}<div class="case-card-body"><span class="case-category">${escape(work.kind)}</span><p class="work-code">作品 ${work.id}</p><h3>${escape(work.title)}</h3><p>${escape(work.description)}</p>${work.photos.length > 1 ? `<details class="work-angles"><summary>查看另一角度照片</summary>${work.photos.slice(1).map(p => photo(p, false)).join('')}</details>` : ''}<div class="button-row"><a class="button button-secondary" href="/contact/?work=${work.id}#inquiry">用這款詢價</a><a class="work-permalink" href="#work-${work.id}">作品連結</a></div></div></article>`;
+export function renderCatalog(groups = catalog, detail = false) {
+  return groups.map(group => `<section class="section-tight portfolio-section" id="${group.id}" aria-labelledby="${group.id}-title"><div class="container">${detail ? `<h2 class="sr-only" id="${group.id}-title">作品照片</h2>` : `<div class="section-heading"><h2 id="${group.id}-title">${escape(group.name)}</h2><p>${escape(group.description)}</p></div>`}<div class="case-gallery-grid">${group.works.map((work, index) => {
+    const photo = (image, first) => `<a href="${escape(image.full)}" target="_blank" rel="noopener" aria-label="放大作品 ${work.id}：${escape(image.alt)}"><img src="${escape(image.src)}" alt="${escape(image.alt)}" width="${image.width}" height="${image.height}" loading="${first && (detail || (group.id === 'roses' && index === 0)) ? 'eager' : 'lazy'}" decoding="async"${first && (detail || (group.id === 'roses' && index === 0)) ? ' fetchpriority="high"' : ''}></a>`;
+    return `<article class="case-card portfolio-work" id="work-${work.id}">${photo(work.photos[0], true)}<div class="case-card-body"><span class="case-category">${escape(work.kind)}</span><p class="work-code">作品 ${work.id}</p><h3>${escape(work.title)}</h3><p>${escape(work.description)}</p>${work.photos.length > 1 ? `<details class="work-angles"><summary>查看另一角度照片</summary>${work.photos.slice(1).map(p => photo(p, false)).join('')}</details>` : ''}<div class="button-row"><a class="button button-secondary" href="/contact/?work=${work.id}#inquiry">用這款詢價</a><a class="work-permalink" href="/gallery/${work.id}/">作品連結</a></div></div></article>`;
   }).join('\n')}</div></div></section>`).join('\n');
 }
 

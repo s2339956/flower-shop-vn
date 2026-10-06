@@ -152,6 +152,7 @@ const reviewedPhotos = new Set([
   "/images/gallery/2026/b012.webp",
   "/images/gallery/2026/b013.webp",
   "/images/gallery/2026/b013-angle-2.webp",
+  "/images/gallery/2026/b013-angle-2-clean-v1.webp",
   "/images/gallery/2026/b014.webp",
   "/images/gallery/2026/b015.webp",
   "/images/gallery/2026/r030.webp",
@@ -218,6 +219,12 @@ for (const [source, info] of Object.entries(imageManifest)) {
 const socialImage = JSON.parse(await readFile(path.join(ROOT, 'content/social-image.json'), 'utf8'));
 assert.ok(socialImage.sources.every(source => reviewedPhotos.has(source)), '分享圖必須源自已審閱照片');
 reviewedPhotos.add(socialImage.src);
+// 每件作品的分享 JPEG 必須追溯至該作品已審閱的主圖，不能共用無關縮圖。
+const workSocial = JSON.parse(await readFile(path.join(ROOT, 'content/work-social-images.json'), 'utf8'));
+for (const image of Object.values(workSocial)) {
+  assert.ok(reviewedPhotos.has(image.source.split('?')[0]), '作品分享圖必須源自已審閱照片');
+  reviewedPhotos.add(image.src);
+}
 for (const filePath of pages) {
   const html = await readFile(filePath, "utf8");
   for (const match of html.matchAll(/(?:https:\/\/flower-shop-vn\.com)?(\/(?:images|videos)\/[^"\s<>]+)/g)) {

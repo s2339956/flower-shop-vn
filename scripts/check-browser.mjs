@@ -52,7 +52,7 @@ try {
   assert.equal(await dialog.locator('a[href*="/contact/"]').getAttribute('href'), '/contact/?work=R040#inquiry');
   await page.evaluate(() => { navigator.clipboard.writeText = async () => { throw new Error('denied'); }; });
   await dialog.getByRole('button', { name: /複製作品連結/ }).click();
-  assert.ok((await dialog.locator('[role="status"]').innerText()).includes('https://flower-shop-vn.com/gallery/#work-R040'));
+  assert.ok((await dialog.locator('[role="status"]').innerText()).includes('https://flower-shop-vn.com/gallery/R040/'));
   await page.screenshot({ path: `${output}/lightbox-mobile.png` });
   await page.keyboard.press('Escape');
   assert.equal(await dialog.evaluate(e => e.open), false);
@@ -79,7 +79,7 @@ try {
   findings.push('放大圖片失敗提供原圖備援，複製拒絕提供正式作品網址');
 
   await go('/contact/?work=R040#inquiry');
-  assert.ok((await page.locator('[data-inquiry-template]').inputValue()).includes('R040（https://flower-shop-vn.com/gallery/#work-R040）'));
+  assert.ok((await page.locator('[data-inquiry-template]').inputValue()).includes('R040（https://flower-shop-vn.com/gallery/R040/）'));
   assert.ok((await page.locator('[data-selected-work]').innerText()).includes('R040'));
   // 模擬瀏覽器拒絕剪貼簿，不寫入使用者剪貼簿或傳送詢價。
   await page.evaluate(() => { navigator.clipboard.writeText = async () => { throw new Error('denied'); }; });

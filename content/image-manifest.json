@@ -819,6 +819,50 @@
       }
     ]
   },
+  "/images/gallery/2026/b013-angle-2-clean-v1.webp": {
+    "width": 1086,
+    "height": 1448,
+    "originalBytes": 248190,
+    "sourceSha256": "70931f3c37799b90c57758285077c3933e5d5988358a1712dae8c8be61135e00",
+    "variants": [
+      {
+        "src": "/images/responsive/b013-angle-2-clean-v1-75321f89233c-320w.webp",
+        "width": 320,
+        "height": 427,
+        "bytes": 31780
+      },
+      {
+        "src": "/images/responsive/b013-angle-2-clean-v1-75321f89233c-360w.webp",
+        "width": 360,
+        "height": 480,
+        "bytes": 38028
+      },
+      {
+        "src": "/images/responsive/b013-angle-2-clean-v1-75321f89233c-480w.webp",
+        "width": 480,
+        "height": 640,
+        "bytes": 58488
+      },
+      {
+        "src": "/images/responsive/b013-angle-2-clean-v1-75321f89233c-640w.webp",
+        "width": 640,
+        "height": 853,
+        "bytes": 85582
+      },
+      {
+        "src": "/images/responsive/b013-angle-2-clean-v1-75321f89233c-960w.webp",
+        "width": 960,
+        "height": 1280,
+        "bytes": 137536
+      },
+      {
+        "src": "/images/responsive/b013-angle-2-clean-v1-75321f89233c-1086w.webp",
+        "width": 1086,
+        "height": 1448,
+        "bytes": 156388
+      }
+    ]
+  },
   "/images/gallery/2026/b013-angle-2.webp": {
     "width": 960,
     "height": 1280,

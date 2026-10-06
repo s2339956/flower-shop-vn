@@ -2,7 +2,7 @@ import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { createHash } from "node:crypto";
-import { siteHeader, normalizeCatalog, responsiveImages, normalizeMetadata, workCodes } from "./site-components.mjs";
+import { siteHeader, normalizeCatalog, responsiveImages, normalizeMetadata, workCodes, catalog, renderCatalog } from "./site-components.mjs";
 
 const SITE_URL = "https://flower-shop-vn.com";
 const ROOT = process.cwd();
@@ -10,6 +10,8 @@ const CONTENT_DIR = path.join(ROOT, "content", "blog");
 const SHOPEE_GUIDE_URL = "https://shopee.tw/product/3151001/29700986020/";
 // 日期由逐頁維護清單記錄，建置時間不會自動變成內容更新時間。
 const PAGE_DATES = JSON.parse(readFileSync(path.join(ROOT, "content/page-dates.json"), "utf8"));
+const WORK_SOCIAL_IMAGES = JSON.parse(readFileSync(path.join(ROOT, "content/work-social-images.json"), "utf8"));
+const workRoutes = workCodes.map(code => `/gallery/${code}/`);
 
 const staticRoutes = [
   "/",
@@ -285,7 +287,7 @@ function renderMarkdown(markdown = "") {
   return html.join("");
 }
 
-function layout({ title, description, canonical, ogImage, ogType = "article", navCurrent = "blog", schema, body }) {
+function layout({ title, description, canonical, ogImage, ogType = "article", schema, body, gallery = false }) {
 
 
   return `<!DOCTYPE html>
@@ -310,7 +312,7 @@ function layout({ title, description, canonical, ogImage, ogType = "article", na
   <meta name="twitter:image" content="${escapeHtml(absoluteUrl(ogImage))}">
   <link rel="icon" type="image/x-icon" href="/images/favicon_io/favicon.ico">
   <link rel="stylesheet" href="/assets/css/main.css"><script src="/assets/js/main.js" defer></script>
-  <script type="application/ld+json">
+${gallery ? '  <script src="/assets/js/gallery.js" defer></script>\n' : ''}  <script type="application/ld+json">
 ${JSON.stringify(schema, null, 2)}
   </script>
 </head>
@@ -466,6 +468,7 @@ function renderSitemap(posts) {
       loc: post.canonical,
       lastmod: PAGE_DATES[post.url] || post.updated,
     })),
+    ...workRoutes.map(route => ({ loc: absoluteUrl(route), lastmod: PAGE_DATES[route] || PAGE_DATES['/gallery/'] })),
   ];
 
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -473,6 +476,29 @@ function renderSitemap(posts) {
 ${urls.map((url) => `  <url><loc>${url.loc}</loc><lastmod>${url.lastmod}</lastmod></url>`).join("\n")}
 </urlset>
 `;
+}
+
+// 沿用作品唯一來源及既有照片預覽；每件作品的 HTML 自帶分享資料，不靠 JS 改 meta。
+function renderWorkPage(group, work) {
+  const route = `/gallery/${work.id}/`;
+  const image = WORK_SOCIAL_IMAGES[work.id];
+  if (!image) throw new Error(`${work.id} 缺少分享圖片；請先執行圖片建置。`);
+  const title = `${work.id} ${work.title} | Flower Shop VN`;
+  const description = `作品 ${work.id}：${work.description}`;
+  const schema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      { '@type': 'WebPage', name: title, url: absoluteUrl(route), description, dateModified: PAGE_DATES['/gallery/'] },
+      { '@type': 'ImageGallery', name: `${work.id} ${work.title}`, url: absoluteUrl(route), associatedMedia: work.photos.map(photo => ({ '@type': 'ImageObject', contentUrl: absoluteUrl(photo.full), caption: photo.alt, width: photo.width, height: photo.height })) },
+      breadcrumb([{ name: '首頁', url: '/' }, { name: '作品參考', url: '/gallery/' }, { name: `${work.id} ${work.title}`, url: route }]),
+    ],
+  };
+  return layout({ title, description, canonical: absoluteUrl(route), ogImage: image.src, ogType: 'website', gallery: true, schema,
+    body: `<main class="work-detail">
+      <div class="container work-detail-heading"><div class="breadcrumbs"><a href="/">首頁</a><span>/</span><a href="/gallery/">作品參考</a><span>/</span><span>${work.id}</span></div><h1>${escapeHtml(work.id)} ${escapeHtml(work.title)}</h1><p>作品照片供款式參考，實際花材、花量、尺寸與包裝依城市、日期及預算確認。</p><div class="button-row"><a class="button button-primary" href="/contact/?work=${work.id}#inquiry">用這款詢價</a><a class="button button-secondary" href="/gallery/">查看全部作品</a></div></div>
+      ${renderCatalog([{ ...group, works: [work] }], true)}
+    </main>`
+  }).replace(/(<meta property="og:image"[^>]+>)/, `$1\n  <meta property="og:image:type" content="image/jpeg">\n  <meta property="og:image:width" content="${image.width}">\n  <meta property="og:image:height" content="${image.height}">\n  <meta property="og:image:alt" content="${escapeHtml(work.title)}">`);
 }
 
 async function main() {
@@ -486,9 +512,17 @@ async function main() {
     await writeFile(path.join(dir, "index.html"), renderPost(post), "utf8");
   }
 
+  for (const group of catalog) {
+    for (const work of group.works) {
+      const dir = path.join(ROOT, 'gallery', work.id);
+      await mkdir(dir, { recursive: true });
+      await writeFile(path.join(dir, 'index.html'), renderWorkPage(group, work), 'utf8');
+    }
+  }
+
   await writeFile(path.join(ROOT, "sitemap.xml"), renderSitemap(posts), "utf8");
 
-  const routes = [...staticRoutes, ...posts.map((post) => post.url)];
+  const routes = [...staticRoutes, ...posts.map((post) => post.url), ...workRoutes];
   // 404 不列入 Sitemap，但沿用同一份頁尾與快速聯絡導覽。
   const shellFiles = [...routes.map(pagePath), path.join(ROOT, "404.html")];
   for (const filePath of shellFiles) {

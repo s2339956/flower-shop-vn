@@ -24,7 +24,7 @@ for (const work of [...codes, "", "M999", "<script>alert(1)</script>"]) {
   });
   initialize();
   if (codes.includes(work)) {
-    assert.ok(template.value.includes(`${work}（https://flower-shop-vn.com/gallery/#work-${work}）`), `${work} 未帶入作品連結`);
+    assert.ok(template.value.includes(`${work}（https://flower-shop-vn.com/gallery/${work}/）`), `${work} 未帶入作品連結`);
     assert.ok(template.value.endsWith("收件人姓名："), "帶入作品不得覆寫其他詢價欄位");
   } else {
     assert.equal(template.value, original, "未知或惡意作品參數應忽略");
