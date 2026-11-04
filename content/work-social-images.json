@@ -1,4 +1,22 @@
 {
+  "R045": {
+    "src": "/images/social/work-r045-e123a355d99f.jpg",
+    "width": 675,
+    "height": 1200,
+    "source": "/images/gallery/2026/r045.webp"
+  },
+  "R046": {
+    "src": "/images/social/work-r046-a4e5ec669a2d.jpg",
+    "width": 900,
+    "height": 1200,
+    "source": "/images/gallery/2026/r046.webp"
+  },
+  "R047": {
+    "src": "/images/social/work-r047-5a37822b797d.jpg",
+    "width": 360,
+    "height": 480,
+    "source": "/images/gallery/2026/r047.webp"
+  },
   "B021": {
     "src": "/images/social/work-b021-e0bc3a44dba4.jpg",
     "width": 900,

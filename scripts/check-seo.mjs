@@ -112,6 +112,9 @@ for (const relativePath of [
 
 // 檢查完整資產引用與已審閱清單，防止原圖、WebP、分享圖或影片重新混入。
 const reviewedPhotos = new Set([
+  "/images/gallery/2026/r047.webp",
+  "/images/gallery/2026/r046.webp",
+  "/images/gallery/2026/r045.webp",
   "/images/IMG_0980.JPG", "/images/IMG_0980.webp",
   "/images/IMG_4860.JPG", "/images/IMG_4860.webp",
   "/images/IMG_4865.JPG", "/images/IMG_4865.webp",
