@@ -94,9 +94,11 @@ function normalizeSiteShell(html, route) {
 
   const shared = withoutShell
     .replace(/<header class="site-header">[\s\S]*?<\/header>/, siteHeader(route))
-    .replace(/<main(?: id="main-content")?>/, '<main id="main-content">')
+    // 作品詳情頁的 main 帶有既有 class；保留 class，同時確保略過導覽有唯一目標。
+    .replace(/<main\b([^>]*)>/, (_match, attributes) => `<main id="main-content"${attributes.replace(/\s+id="[^"]*"/g, "")}>`)
     .replace(/\s*<a class="skip-link"[^>]*>[\s\S]*?<\/a>\s*/g, '\n')
-    .replace(/<body>\s*/, '<body>\n  <a class="skip-link" href="#main-content">跳至主要內容</a>\n  ');
+    // GA4 事件使用建置器產生的作品白名單；不讓網址參數直接成為可追蹤的作品編號。
+    .replace(/<body(?:\s+data-work-codes="[^"]*")?(?:\s+data-work-count="\d+")?>\s*/, `<body data-work-codes="${workCodes.join(",")}" data-work-count="${workCodes.length}">\n  <a class="skip-link" href="#main-content">跳至主要內容</a>\n  `);
   return shared.replace(
     /\s*<\/body>\s*<\/html>\s*$/,
     `\n\n${siteFooter()}\n\n${floatingContact()}\n</body>\n</html>\n`,
@@ -478,6 +480,22 @@ ${urls.map((url) => `  <url><loc>${url.loc}</loc><lastmod>${url.lastmod}</lastmo
 `;
 }
 
+function renderWorkSelectionGuide(work) {
+  const guide = work.selectionGuide;
+  if (!guide) return "";
+  const related = guide.related.map((code) => {
+    const relatedWork = catalog.flatMap((group) => group.works).find((candidate) => candidate.id === code);
+    if (!relatedWork) throw new Error(`${work.id} 的相關作品 ${code} 不存在。`);
+    return `<a href="/gallery/${escapeHtml(code)}/">${escapeHtml(code)} ${escapeHtml(relatedWork.title)}</a>`;
+  });
+  return `<div class="work-selection-guide" data-selection-guide>
+        <p><strong>選款提示：</strong>${escapeHtml(guide.intro)} ${escapeHtml(guide.focus)}</p>
+        <p>詢價前請先確認：</p>
+        <ul>${guide.confirm.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        <p>花禮 NT$1,500 起為詢價起點，不代表本款的售價；本款尺寸、花量與總價請於接單前確認。也可比較${related.join("、")}。</p>
+      </div>`;
+}
+
 // 沿用作品唯一來源及既有照片預覽；每件作品的 HTML 自帶分享資料，不靠 JS 改 meta。
 function renderWorkPage(group, work) {
   const route = `/gallery/${work.id}/`;
@@ -485,6 +503,11 @@ function renderWorkPage(group, work) {
   if (!image) throw new Error(`${work.id} 缺少分享圖片；請先執行圖片建置。`);
   const title = `${work.id} ${work.title} | Flower Shop VN`;
   const description = `作品 ${work.id}：${work.description}`;
+  const descriptionMarkup = `<p>${escapeHtml(work.description)}</p>`;
+  const originalCard = renderCatalog([{ ...group, works: [work] }], true);
+  if (work.selectionGuide && !originalCard.includes(descriptionMarkup)) throw new Error(`${work.id} 找不到原作品說明區，停止加入選款內容。`);
+  // 選款文字留在原照片旁的說明區，不放在頁首把作品照片往下推。
+  const detailCard = originalCard.replace(descriptionMarkup, () => descriptionMarkup + renderWorkSelectionGuide(work));
   const schema = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -495,8 +518,8 @@ function renderWorkPage(group, work) {
   };
   return layout({ title, description, canonical: absoluteUrl(route), ogImage: image.src, ogType: 'website', gallery: true, schema,
     body: `<main class="work-detail">
-      <div class="container work-detail-heading"><div class="breadcrumbs"><a href="/">首頁</a><span>/</span><a href="/gallery/">作品參考</a><span>/</span><span>${work.id}</span></div><h1>${escapeHtml(work.id)} ${escapeHtml(work.title)}</h1><p>作品照片供款式參考，實際花材、花量、尺寸與包裝依城市、日期及預算確認。</p><div class="button-row"><a class="button button-primary" href="/contact/?work=${work.id}#inquiry">用這款詢價</a><a class="button button-secondary" href="/gallery/">查看全部作品</a></div></div>
-      ${renderCatalog([{ ...group, works: [work] }], true)}
+      <div class="container work-detail-heading"><div class="breadcrumbs"><a href="/">首頁</a><span>/</span><a href="/gallery/">作品參考</a><span>/</span><span>${work.id}</span></div><h1>${escapeHtml(work.id)} ${escapeHtml(work.title)}</h1><p>作品照片供款式參考，花材、花量、尺寸與包裝須於接單前確認；至少提前一天訂購，不接受配送日期當天才提出的新單，一律轉帳付款，訂單確認後不接受花材替換。<a href="/ordering-policy/">查看訂購與退款說明</a>。</p><div class="button-row"><a class="button button-primary" href="/contact/?work=${work.id}#inquiry">用這款詢價</a><a class="button button-secondary" href="/gallery/">查看全部作品</a></div></div>
+      ${detailCard}
     </main>`
   }).replace(/(<meta property="og:image"[^>]+>)/, `$1\n  <meta property="og:image:type" content="image/jpeg">\n  <meta property="og:image:width" content="${image.width}">\n  <meta property="og:image:height" content="${image.height}">\n  <meta property="og:image:alt" content="${escapeHtml(work.title)}">`);
 }

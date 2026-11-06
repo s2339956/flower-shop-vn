@@ -6,7 +6,8 @@ const photoCount = catalog.flatMap(group => group.works.flatMap(work => work.pho
 const runtime = await import(pathToFileURL(process.env.PLAYWRIGHT_MODULE || '/opt/homebrew/lib/node_modules/@playwright/cli/node_modules/playwright-core/index.js'));
 const { chromium } = runtime.default || runtime;
 const base = process.argv[2] || 'http://127.0.0.1:4318';
-const output = 'dev-notes/browser';
+// 每輪驗收可指定獨立目錄，保留先前原版與候選的證據。
+const output = process.argv[3] || 'dev-notes/browser';
 await mkdir(output, { recursive: true });
 const browser = await chromium.launch({ channel: 'chrome', headless: true });
 const findings = [];
