@@ -300,7 +300,7 @@ assert.match(contact, /data-inquiry-template/, "聯絡頁必須提供可直接�
 // GA4 僅能由共用腳本在使用者同意後載入，並須提供隨時修改選擇的入口。
 const mainScript = await readFile(path.join(ROOT, "assets", "js", "main.js"), "utf8");
 const orderingPolicy = await readFile(path.join(ROOT, "ordering-policy", "index.html"), "utf8");
-assert.match(mainScript, /G-NFGV86CR3K/, "共用腳本必須使用本網站的 GA4 評估 ID");
+assert.match(mainScript, /G-W2RMKRVMKJ/, "共用腳本必須使用本網站的 GA4 評估 ID");
 assert.match(mainScript, /if \(consent === "granted"\) loadAnalytics\(\)/, "GA4 必須只在使用者同意後自動載入");
 assert.match(mainScript, /ad_personalization: "denied"/, "GA4 必須停用廣告個人化");
 assert.match(mainScript, /ga-disable-/, "撤回同意後必須使用 Google 官方停用旗標阻止資料傳送");

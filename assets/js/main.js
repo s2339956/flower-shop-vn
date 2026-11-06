@@ -1,9 +1,184 @@
-const ANALYTICS_ID = "G-NFGV86CR3K";
+const ANALYTICS_ID = "G-W2RMKRVMKJ";
 const ANALYTICS_CONSENT_KEY = "flower-shop-vn.analytics-consent";
 const ANALYTICS_DISABLE_KEY = `ga-disable-${ANALYTICS_ID}`;
+const SITE_URL = "https://flower-shop-vn.com";
+const CONTACT_CHANNELS = new Map([
+  ["https://line.me/ti/p/s2339956", "line"],
+  ["https://zalo.me/0836058119", "zalo"],
+  ["mailto:s2339956@gmail.com", "email"],
+  ["tel:+886916316950", "phone"],
+  ["https://shopee.tw/product/3151001/29700986020/", "shopee"],
+]);
+const REFERRER_ORIGINS = new Map([
+  ["google.com", "https://www.google.com"],
+  ["www.google.com", "https://www.google.com"],
+  ["google.com.tw", "https://www.google.com"],
+  ["www.google.com.tw", "https://www.google.com"],
+  ["bing.com", "https://www.bing.com"],
+  ["www.bing.com", "https://www.bing.com"],
+  ["chatgpt.com", "https://chatgpt.com"],
+  ["chat.openai.com", "https://chatgpt.com"],
+  ["perplexity.ai", "https://www.perplexity.ai"],
+  ["www.perplexity.ai", "https://www.perplexity.ai"],
+  ["copilot.com", "https://copilot.com"],
+  ["www.copilot.com", "https://copilot.com"],
+  ["copilot.microsoft.com", "https://copilot.com"],
+  ["gemini.google.com", "https://gemini.google.com"],
+]);
+
+let analyticsGranted = false;
+let analyticsPage = null;
+let analyticsQuerySanitized = !window.location?.search;
+
+// 先把詢價作品留在記憶體，再移除整段 query，避免 GA 或網址列保留 work／UTM。
+function consumeInitialWorkQuery() {
+  const search = window.location?.search || "";
+  const work = new URLSearchParams(search).get("work");
+  if (!search) return work;
+
+  analyticsQuerySanitized = false;
+  try {
+    window.history?.replaceState(
+      window.history.state,
+      "",
+      `${window.location.pathname || ""}${window.location.hash || ""}`,
+    );
+    analyticsQuerySanitized = !window.location.search;
+  } catch {
+    // 無法清除 query 時維持 fail closed，不載入或傳送分析資料。
+  }
+  return work;
+}
+
+function getReferrerParameters() {
+  try {
+    const referrer = new URL(document.referrer);
+    if (referrer.protocol !== "https:" || referrer.port || referrer.username || referrer.password) throw new Error();
+    const mappedOrigin = REFERRER_ORIGINS.get(referrer.hostname);
+    if (mappedOrigin) return { page_referrer: mappedOrigin };
+  } catch {
+    // 空白、格式錯誤或非白名單來源一律不重組、不傳送原始 referrer。
+  }
+  return { page_referrer: "", ignore_referrer: true };
+}
+
+function getAnalyticsPage() {
+  if (!analyticsQuerySanitized || window.location?.search) return null;
+
+  const canonicalElement = document.querySelector('link[rel="canonical"]');
+  const rawCanonical = canonicalElement?.getAttribute?.("href") || "";
+  try {
+    const canonical = new URL(rawCanonical);
+    const navigation = typeof performance === "undefined"
+      ? null
+      : performance.getEntriesByType?.("navigation")?.[0];
+    if (
+      canonical.href !== rawCanonical
+      || canonical.origin !== SITE_URL
+      || canonical.username
+      || canonical.password
+      || canonical.port
+      || canonical.search
+      || canonical.hash
+      || canonical.pathname !== window.location?.pathname
+      || (Number.isInteger(navigation?.responseStatus) && navigation.responseStatus >= 400)
+    ) return null;
+
+    return {
+      location: canonical.href,
+      pathname: canonical.pathname,
+      referrer: getReferrerParameters(),
+    };
+  } catch {
+    return null;
+  }
+}
+
+function getKnownWorkCodes() {
+  const codes = (document.body?.dataset.workCodes || "").split(",").filter(Boolean);
+  const countText = document.body?.dataset.workCount || "";
+  const expectedCount = Number(countText);
+  // 數量與清單都由 catalog 產生；任一標記不完整時寧可不計事件。
+  if (
+    !/^[1-9]\d*$/.test(countText)
+    || !Number.isSafeInteger(expectedCount)
+    || !codes.length
+    || codes.length !== expectedCount
+    || new Set(codes).size !== expectedCount
+    || codes.some((code) => !/^[A-Z]\d{3}$/.test(code))
+  ) {
+    return new Set();
+  }
+  return new Set(codes);
+}
+
+function getWorkInquiryCode(href, knownWorkCodes) {
+  try {
+    const target = new URL(href, SITE_URL);
+    const work = target.searchParams.get("work");
+    if (target.origin === SITE_URL && target.pathname === "/contact/" && target.hash === "#inquiry" && knownWorkCodes.has(work)) {
+      return work;
+    }
+  } catch {
+    // 非 URL 或未知作品不產生事件。
+  }
+  return null;
+}
+
+function sendAnalyticsEvent(name, parameters) {
+  if (
+    !analyticsGranted
+    || window[ANALYTICS_DISABLE_KEY]
+    || !analyticsPage
+    || typeof window.gtag !== "function"
+    || !["contact_click", "work_inquiry", "inquiry_copy"].includes(name)
+  ) return;
+
+  if (!parameters || typeof parameters !== "object" || Array.isArray(parameters)) return;
+  const keys = Reflect.ownKeys(parameters);
+  let eventParameters;
+  if (name === "contact_click") {
+    if (keys.length !== 1 || keys[0] !== "channel" || !new Set(CONTACT_CHANNELS.values()).has(parameters.channel)) return;
+    eventParameters = { channel: parameters.channel };
+  } else if (name === "work_inquiry") {
+    if (keys.length !== 1 || keys[0] !== "work_code" || !getKnownWorkCodes().has(parameters.work_code)) return;
+    eventParameters = { work_code: parameters.work_code };
+  } else {
+    if (keys.length) return;
+    eventParameters = {};
+  }
+
+  // 每個事件都明確覆寫頁面脈絡，避免 gtag 回退到含 hash 或原始 referrer 的瀏覽器值。
+  window.gtag("event", name, {
+    ...eventParameters,
+    send_to: ANALYTICS_ID,
+    page_location: analyticsPage.location,
+    ...analyticsPage.referrer,
+  });
+}
+
+function trackAnalyticsInteractions() {
+  const knownWorkCodes = getKnownWorkCodes();
+  document.addEventListener("click", (event) => {
+    const link = event.target?.closest?.("a[href]");
+    if (!link) return;
+
+    const href = link.getAttribute("href") || "";
+    const channel = CONTACT_CHANNELS.get(href);
+    if (channel) {
+      sendAnalyticsEvent("contact_click", { channel });
+      return;
+    }
+
+    const work = getWorkInquiryCode(href, knownWorkCodes);
+    if (work) sendAnalyticsEvent("work_inquiry", { work_code: work });
+  });
+}
 
 // GA4 採基本同意模式：訪客允許前不下載 Google 標籤，也不送出分析請求。
 function initAnalyticsConsent() {
+  let analyticsConfigured = false;
+  let pageViewSent = false;
   const readConsent = () => {
     try {
       return localStorage.getItem(ANALYTICS_CONSENT_KEY);
@@ -29,6 +204,8 @@ function initAnalyticsConsent() {
 
   const denyGoogleConsent = () => {
     // Google 官方停用旗標會阻止既有標籤繼續設定 Cookie 或傳送資料。
+    analyticsGranted = false;
+    analyticsPage = null;
     window[ANALYTICS_DISABLE_KEY] = true;
     if (!window.gtag) return;
     window.gtag("consent", "update", {
@@ -40,8 +217,22 @@ function initAnalyticsConsent() {
   };
 
   const loadAnalytics = () => {
+    const page = getAnalyticsPage();
+    if (!page) {
+      denyGoogleConsent();
+      return;
+    }
+
     window[ANALYTICS_DISABLE_KEY] = false;
     prepareGoogleTag();
+    // SDK 載入前先固定全域頁面脈絡，避免其初始化自動事件讀取原始 URL 或 referrer。
+    window.gtag("set", {
+      send_page_view: false,
+      page_location: page.location,
+      ...page.referrer,
+      allow_google_signals: false,
+      allow_ad_personalization_signals: false,
+    });
     const existingTag = document.querySelector(`[data-ga4-id="${ANALYTICS_ID}"]`);
     if (!existingTag) {
       window.gtag("consent", "default", {
@@ -57,13 +248,28 @@ function initAnalyticsConsent() {
       ad_user_data: "denied",
       ad_personalization: "denied",
     });
-    if (existingTag) return;
+    analyticsGranted = true;
+    analyticsPage = page;
 
-    window.gtag("js", new Date());
-    window.gtag("config", ANALYTICS_ID, {
-      allow_google_signals: false,
-      allow_ad_personalization_signals: false,
-    });
+    if (!analyticsConfigured) {
+      window.gtag("js", new Date());
+      window.gtag("config", ANALYTICS_ID, {
+        allow_google_signals: false,
+        allow_ad_personalization_signals: false,
+        send_page_view: false,
+        page_location: page.location,
+        ...page.referrer,
+      });
+      analyticsConfigured = true;
+    }
+    if (!pageViewSent) {
+      window.gtag("event", "page_view", {
+        page_location: page.location,
+        ...page.referrer,
+      });
+      pageViewSent = true;
+    }
+    if (existingTag) return;
 
     const script = document.createElement("script");
     script.async = true;
@@ -129,7 +335,9 @@ function initAnalyticsConsent() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  const requestedWork = consumeInitialWorkQuery();
   initAnalyticsConsent();
+  trackAnalyticsInteractions();
 
   const navToggle = document.querySelector("[data-nav-toggle]");
   const nav = document.querySelector("[data-nav]");
@@ -210,7 +418,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 只帶入作品清單中的編號；內容留在詢價欄位，由客戶自行複製給客服。
   if (inquiryTemplate) {
-    const work = new URLSearchParams(window.location.search).get("work");
+    const work = requestedWork;
     const workCodes = (inquiryTemplate.dataset.workCodes || "").split(",").filter(Boolean);
     if (work && workCodes.includes(work)) {
       inquiryTemplate.value = inquiryTemplate.value.replace(
@@ -244,6 +452,7 @@ document.addEventListener("DOMContentLoaded", () => {
           if (!document.execCommand("copy")) throw new Error("瀏覽器拒絕複製");
         }
         copyStatus.textContent = "已複製詢價內容，可直接貼到 LINE 或 Zalo。";
+        if (analyticsPage?.pathname === "/contact/") sendAnalyticsEvent("inquiry_copy", {});
       } catch {
         copyStatus.textContent = "無法自動複製，請選取上方文字後手動複製。";
       }

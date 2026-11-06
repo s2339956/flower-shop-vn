@@ -9,14 +9,20 @@ export const workCodes = catalog.flatMap(group => group.works.map(work => work.i
 export const escape = (value = '') => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
 
 const navItems = [['/', '首頁'], ['/services/', '服務'], ['/cities/', '城市'], ['/gallery/', '作品參考'], ['/pricing/', '價格'], ['/faq/', '常見問題'], ['/blog/', '送花指南']];
+// 快速聯絡與導覽共用header；手機採正常排版，不覆蓋閱讀區。
+function floatingContact() {
+  return `<nav class="floating-contact" aria-label="快速聯絡"><a class="floating-line" href="https://line.me/ti/p/s2339956" target="_blank" rel="noopener noreferrer">LINE</a><a class="floating-zalo" href="https://zalo.me/0836058119" target="_blank" rel="noopener noreferrer">Zalo</a></nav>`;
+}
+
 export function siteHeader(route) {
-  return `<header class="site-header"><div class="container header-inner"><a class="brand" href="/"><span class="brand-mark">花</span><span class="brand-text"><strong>越南花禮代訂所</strong><span>Flower Shop VN</span></span></a><button class="nav-toggle" type="button" aria-label="切換導覽" aria-expanded="false" aria-controls="site-navigation" data-nav-toggle><span></span><span></span><span></span></button><nav class="site-nav" id="site-navigation" aria-label="主選單" data-nav>${navItems.map(([url, label]) => `<a href="${url}"${route === url ? ' aria-current="page"' : ''}>${label}</a>`).join('')}<a href="/contact/" class="nav-cta"${route === '/contact/' ? ' aria-current="page"' : ''}>立即諮詢</a></nav></div></header>`;
+  return `<header class="site-header"><div class="container header-inner"><a class="brand" href="/"><span class="brand-mark">花</span><span class="brand-text"><strong>越南花禮代訂所</strong><span>Flower Shop VN</span></span></a><button class="nav-toggle" type="button" aria-label="切換導覽" aria-expanded="false" aria-controls="site-navigation" data-nav-toggle><span></span><span></span><span></span></button><nav class="site-nav" id="site-navigation" aria-label="主選單" data-nav>${navItems.map(([url, label]) => `<a href="${url}"${route === url ? ' aria-current="page"' : ''}>${label}</a>`).join('')}<a href="/contact/" class="nav-cta"${route === '/contact/' ? ' aria-current="page"' : ''}>立即諮詢</a></nav></div>${floatingContact()}</header>`;
 }
 
 // 原始 URL 留在 data-image-source；重跑建置仍從原圖取得候選圖，不連續壓縮。
 export function responsiveImages(html, route) {
   return html.replace(/<picture>\s*<source[^>]+>\s*(<img[^>]+>)\s*<\/picture>/g, '$1').replace(/<img\b([^>]+)>/g, (tag, attrs) => {
     const fields = Object.fromEntries([...attrs.matchAll(/([\w-]+)="([^"]*)"/g)].map(m => [m[1], m[2]]));
+    const isHomeWork = fields['data-home-work'] === 'true';
     let source = fields['data-image-source'] || fields.src;
     if (fields.fetchpriority === 'high' && source === '/images/gallery/2026/b001.webp' && !route.startsWith('/gallery/')) {
       // 大型主視覺改用既有高解析實拍；作品 B001 本身保留原圖與原編號。
@@ -33,7 +39,13 @@ export function responsiveImages(html, route) {
     fields.srcset = candidates.map(v => `${v.src} ${v.width}w`).join(', ');
     fields.sizes = route === '/gallery/'
       ? '(max-width: 374px) calc(100vw - 32px), (max-width: 640px) calc((100vw - 44px) / 2), (max-width: 980px) calc((100vw - 56px) / 2), 380px'
-      : route === '/' ? '(max-width: 640px) 70vw, (max-width: 980px) 45vw, 380px' : '(max-width: 640px) calc(100vw - 32px), (max-width: 980px) 60vw, 560px';
+      : route === '/' && isHomeWork
+        // 首頁作品條在桌面六欄、手機兩欄；以實際欄寬選圖，避免首屏載入過大的候選圖。
+        ? '(max-width: 374px) calc(100vw - 32px), (max-width: 780px) calc((100vw - 70px) / 2), calc((min(100vw - 48px, 1180px) - 120px) / 6)'
+        : route === '/'
+          // 首頁下方既有作品預覽由版面維持三欄桌面、兩欄手機，不套用首屏八欄尺寸。
+          ? '(max-width: 640px) calc((100vw - 44px) / 2), (max-width: 980px) calc((100vw - 56px) / 2), calc((min(100vw - 48px, 1180px) - 48px) / 3)'
+          : '(max-width: 640px) calc(100vw - 32px), (max-width: 980px) 60vw, 560px';
     fields.width = info.width;
     fields.height = info.height;
     // src 放第一個，兼容原有素材稽核；保留 lazy、alt 與讀取優先順序。

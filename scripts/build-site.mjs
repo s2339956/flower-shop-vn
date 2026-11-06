@@ -67,13 +67,6 @@ function siteFooter() {
   </footer>`;
 }
 
-function floatingContact() {
-  return `  <nav class="floating-contact" aria-label="快速聯絡">
-    <a class="floating-line" href="https://line.me/ti/p/s2339956" target="_blank" rel="noopener noreferrer">LINE</a>
-    <a class="floating-zalo" href="https://zalo.me/0836058119" target="_blank" rel="noopener noreferrer">Zalo</a>
-  </nav>`;
-}
-
 function pagePath(route) {
   return route === "/"
     ? path.join(ROOT, "index.html")
@@ -94,12 +87,14 @@ function normalizeSiteShell(html, route) {
 
   const shared = withoutShell
     .replace(/<header class="site-header">[\s\S]*?<\/header>/, siteHeader(route))
-    .replace(/<main(?: id="main-content")?>/, '<main id="main-content">')
+    // 作品頁的main帶有class，仍須提供略過導覽連結的真正焦點目標。
+    .replace(/<main\b([^>]*)>/, (_tag, attributes) => `<main id="main-content"${attributes.replace(/\s+id="[^"]*"/g, '')}>`)
     .replace(/\s*<a class="skip-link"[^>]*>[\s\S]*?<\/a>\s*/g, '\n')
-    .replace(/<body>\s*/, '<body>\n  <a class="skip-link" href="#main-content">跳至主要內容</a>\n  ');
+    // 分析事件只能使用建置器提供的作品白名單，不將任意 query 視為合法作品。
+    .replace(/<body(?: data-work-codes="[^"]*")?(?: data-work-count="\d+")?>\s*/, `<body data-work-codes="${workCodes.join(',')}" data-work-count="${workCodes.length}">\n  <a class="skip-link" href="#main-content">跳至主要內容</a>\n  `);
   return shared.replace(
     /\s*<\/body>\s*<\/html>\s*$/,
-    `\n\n${siteFooter()}\n\n${floatingContact()}\n</body>\n</html>\n`,
+    `\n\n${siteFooter()}\n</body>\n</html>\n`,
   );
 }
 
@@ -230,6 +225,8 @@ function renderMarkdown(markdown = "") {
   const html = [];
   let paragraph = [];
   let list = [];
+  let listTag = 'ul';
+  let codeLines = null;
 
   function flushParagraph() {
     if (!paragraph.length) return;
@@ -239,12 +236,27 @@ function renderMarkdown(markdown = "") {
 
   function flushList() {
     if (!list.length) return;
-    html.push(`<ul class="check-list">${list.map((item) => `<li>${renderInline(item)}</li>`).join("")}</ul>`);
+    html.push(`<${listTag} class="check-list">${list.map((item) => `<li>${renderInline(item)}</li>`).join("")}</${listTag}>`);
     list = [];
   }
 
   for (const line of lines) {
     const trimmed = line.trim();
+
+    // 詢價模板需保留換行且一律轉義，不把Markdown中的文字當成可執行HTML。
+    if (codeLines !== null) {
+      if (trimmed === '```') {
+        html.push(`<pre class="inquiry-example">${escapeHtml(codeLines.join('\n'))}</pre>`);
+        codeLines = null;
+      } else codeLines.push(line);
+      continue;
+    }
+    if (/^```[\w-]*$/.test(trimmed)) {
+      flushParagraph();
+      flushList();
+      codeLines = [];
+      continue;
+    }
 
     if (!trimmed) {
       flushParagraph();
@@ -268,7 +280,18 @@ function renderMarkdown(markdown = "") {
 
     if (trimmed.startsWith("- ")) {
       flushParagraph();
+      if (listTag !== 'ul') flushList();
+      listTag = 'ul';
       list.push(trimmed.slice(2));
+      continue;
+    }
+
+    const ordered = trimmed.match(/^\d+\.\s+(.+)$/);
+    if (ordered) {
+      flushParagraph();
+      if (listTag !== 'ol') flushList();
+      listTag = 'ol';
+      list.push(ordered[1]);
       continue;
     }
 
@@ -284,6 +307,7 @@ function renderMarkdown(markdown = "") {
 
   flushParagraph();
   flushList();
+  if (codeLines !== null) throw new Error('文章的多行模板缺少結束標記，停止建置。');
   return html.join("");
 }
 
@@ -479,6 +503,21 @@ ${urls.map((url) => `  <url><loc>${url.loc}</loc><lastmod>${url.lastmod}</lastmo
 }
 
 // 沿用作品唯一來源及既有照片預覽；每件作品的 HTML 自帶分享資料，不靠 JS 改 meta。
+function renderSelectionGuide(work) {
+  const guide = work.selectionGuide;
+  if (!guide) return '';
+  // 選款建議只取維護過的作品資料，不把照片推測成成交案例、固定售價或尺寸。
+  const related = guide.related.map(code => catalog.flatMap(group => group.works).find(item => item.id === code));
+  if (related.some(item => !item)) throw new Error(`${work.id} 的相關作品不存在。`);
+  return `<section class="section-tight"><div class="container content-block" data-selection-guide>
+    <h2>這款花禮怎麼挑</h2><p>${escapeHtml(guide.intro)}</p><p>${escapeHtml(guide.focus)}</p>
+    <h2>詢價前先確認</h2><ul>${guide.confirm.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>
+    <p>照片未標示的尺寸、花量及價格，請於接單前確認。全站花禮 NT$1,500 起是最低預算參考，不代表本款的售價；實際總價請見<a href="/pricing/">越南送花報價方式</a>。</p>
+    <h2>比較其他花禮</h2><ul>${related.map(item => `<li><a href="/gallery/${escapeHtml(item.id)}/">${escapeHtml(item.id)} ${escapeHtml(item.title)}</a></li>`).join('')}</ul>
+    <p>可依用途查看<a href="/services/birthday-flowers-vietnam/">生日花束</a>、<a href="/services/wedding-flowers-vietnam/">求婚與婚禮花禮</a>，或先確認<a href="/cities/">收件城市與配送條件</a>。</p>
+  </div></section>`;
+}
+
 function renderWorkPage(group, work) {
   const route = `/gallery/${work.id}/`;
   const image = WORK_SOCIAL_IMAGES[work.id];
@@ -495,8 +534,8 @@ function renderWorkPage(group, work) {
   };
   return layout({ title, description, canonical: absoluteUrl(route), ogImage: image.src, ogType: 'website', gallery: true, schema,
     body: `<main class="work-detail">
-      <div class="container work-detail-heading"><div class="breadcrumbs"><a href="/">首頁</a><span>/</span><a href="/gallery/">作品參考</a><span>/</span><span>${work.id}</span></div><h1>${escapeHtml(work.id)} ${escapeHtml(work.title)}</h1><p>作品照片供款式參考，實際花材、花量、尺寸與包裝依城市、日期及預算確認。</p><div class="button-row"><a class="button button-primary" href="/contact/?work=${work.id}#inquiry">用這款詢價</a><a class="button button-secondary" href="/gallery/">查看全部作品</a></div></div>
-      ${renderCatalog([{ ...group, works: [work] }], true)}
+      <div class="container work-detail-heading"><div class="breadcrumbs"><a href="/">首頁</a><span>/</span><a href="/gallery/">作品參考</a><span>/</span><span>${work.id}</span></div><h1>${escapeHtml(work.id)} ${escapeHtml(work.title)}</h1><p>作品照片供款式參考，花材、花量、尺寸與包裝須於接單前確認，確認後不接受花材替換。至少提前一天訂購，不接當天下單當天送達；一律轉帳付款。<a href="/ordering-policy/">查看訂購與退款說明</a>。</p><div class="button-row"><a class="button button-primary" href="/contact/?work=${work.id}#inquiry">用這款詢價</a><a class="button button-secondary" href="/gallery/">查看全部作品</a></div></div>
+      ${renderCatalog([{ ...group, works: [work] }], true)}${renderSelectionGuide(work)}
     </main>`
   }).replace(/(<meta property="og:image"[^>]+>)/, `$1\n  <meta property="og:image:type" content="image/jpeg">\n  <meta property="og:image:width" content="${image.width}">\n  <meta property="og:image:height" content="${image.height}">\n  <meta property="og:image:alt" content="${escapeHtml(work.title)}">`);
 }
