@@ -18,13 +18,14 @@ const findings = [];
 
 try {
   const context = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
-  const googleRequests = [];
+  const restrictedRequests = [];
   // 真實標籤可下載；分析請求只在本機回204，既不外送，也避免abort觸發重試而誤判重複事件。
   await context.route('**/*', async route => {
     const request = route.request();
     const url = new URL(request.url());
     if (url.origin === new URL(base).origin) return route.continue();
-    googleRequests.push(request.url());
+    // 正式站的Cloudflare RUM與選用GA分開揭露，不把它誤判為未同意的Google請求。
+    if (!['static.cloudflareinsights.com', 'cloudflareinsights.com'].includes(url.hostname)) restrictedRequests.push(request.url());
     if (url.origin === 'https://www.googletagmanager.com' && url.pathname === '/gtag/js') return route.continue();
     if (/google-analytics\.com$/.test(url.hostname) || url.pathname.includes('/collect')) {
       attemptedCollect.push({ url: request.url(), body: request.postData() || '' });
@@ -45,7 +46,7 @@ try {
   assert.ok((await page.locator('[data-inquiry-template]').inputValue()).includes('R045'));
   assert.equal(new URL(page.url()).search, '', '清理網址不得破壞已驗證作品預填');
   assert.equal(new URL(page.url()).hash, '#inquiry');
-  assert.deepEqual(googleRequests, [], '未同意不得連線至Google');
+  assert.deepEqual(restrictedRequests, [], '未同意不得連線至Google或其他未核准服務');
   await page.locator('[data-analytics-allow]').click();
   await page.waitForTimeout(1200);
 
