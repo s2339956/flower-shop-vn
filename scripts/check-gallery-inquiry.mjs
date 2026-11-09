@@ -6,7 +6,11 @@ const source = await readFile(new URL("../assets/js/main.js", import.meta.url), 
 const gallery = await readFile(new URL("../gallery/index.html", import.meta.url), "utf8");
 const codes = [...gallery.matchAll(/id="work-([A-Z]\d{3})"/g)].map((match) => match[1]);
 const contact = await readFile(new URL("../contact/index.html", import.meta.url), "utf8");
-const workCodes = contact.match(/data-work-codes="([^"]+)"/)[1];
+// 實際初始化讀取詢價 textarea，不能誤用 body 上的全站分析白名單。
+const inquiryTag = contact.match(/<textarea\b(?=[^>]*\bdata-inquiry-template(?:[\s=>]))[^>]*>/i)?.[0];
+assert.ok(inquiryTag, "聯絡頁必須有詢價 textarea");
+const workCodes = inquiryTag.match(/\bdata-work-codes="([^"]+)"/)?.[1];
+assert.ok(workCodes, "詢價 textarea 必須有作品白名單");
 assert.deepEqual(new Set(workCodes.split(",")), new Set(codes), "詢價清單必須涵蓋全部作品");
 
 // 執行真正的頁面初始化；只略過與作品帶入無關的分析同意介面。

@@ -1622,5 +1622,147 @@
         ]
       }
     ]
+  },
+  {
+    "id": "opening-stands",
+    "name": "開幕花架",
+    "description": "查看粉色、紅色與綜合配色的開幕花架，從花面、葉材、網紗及雙層造型挑選商務祝賀方向。",
+    "works": [
+      {
+        "id": "O001",
+        "title": "粉色綜合花架・金色網紗",
+        "description": "粉色綜合花材搭配金色網紗，呈現明亮的開幕花架配色。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/o001.webp",
+            "full": "/images/gallery/2026/o001.webp",
+            "alt": "粉色綜合花架・金色網紗",
+            "width": 392,
+            "height": 685
+          }
+        ]
+      },
+      {
+        "id": "O002",
+        "title": "粉白綜合花架・粉色雙層造型",
+        "description": "粉色與白色綜合花材搭配粉色雙層造型，可參考花面的上下層次。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/o002.webp",
+            "full": "/images/gallery/2026/o002.webp",
+            "alt": "粉白綜合花架・粉色雙層造型",
+            "width": 331,
+            "height": 645
+          }
+        ]
+      },
+      {
+        "id": "O003",
+        "title": "粉色綜合花架・銀綠龜背葉",
+        "description": "粉色綜合花材搭配銀綠色龜背葉，可參考粉色花面與葉材的對比。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/o003.webp",
+            "full": "/images/gallery/2026/o003.webp",
+            "alt": "粉色綜合花架・銀綠龜背葉",
+            "width": 313,
+            "height": 645
+          }
+        ]
+      },
+      {
+        "id": "O004",
+        "title": "紅色綜合花架・白蝴蝶蘭",
+        "description": "紅色綜合花材搭配白色蝴蝶蘭，可參考紅白配色的開幕花架。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/o004.webp",
+            "full": "/images/gallery/2026/o004.webp",
+            "alt": "紅色綜合花架・白蝴蝶蘭",
+            "width": 810,
+            "height": 1080
+          }
+        ]
+      },
+      {
+        "id": "O005",
+        "title": "粉白蝴蝶蘭花架・粉色網紗",
+        "description": "粉白色蝴蝶蘭搭配粉色網紗，可參考柔和粉白配色與網紗裝飾。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/o005.webp",
+            "full": "/images/gallery/2026/o005.webp",
+            "alt": "粉白蝴蝶蘭花架・粉色網紗",
+            "width": 842,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "O006",
+        "title": "紅玫瑰與粉色菊花・粉色網紗",
+        "description": "紅玫瑰搭配粉色菊花與粉色網紗，可參考紅粉花色的搭配。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/o006.webp",
+            "full": "/images/gallery/2026/o006.webp",
+            "alt": "紅玫瑰與粉色菊花・粉色網紗",
+            "width": 1025,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "O007",
+        "title": "紅橙色綜合花架・紅粉網紗",
+        "description": "紅色與橙色綜合花材搭配紅粉色網紗，可參考暖色系的開幕花架。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/o007.webp",
+            "full": "/images/gallery/2026/o007.webp",
+            "alt": "紅橙色綜合花架・紅粉網紗",
+            "width": 960,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "O008",
+        "title": "粉紫玫瑰與蝴蝶蘭・雙層花架",
+        "description": "粉紫色玫瑰搭配蝴蝶蘭，以雙層花架呈現花面層次。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/o008.webp",
+            "full": "/images/gallery/2026/o008.webp",
+            "alt": "粉紫玫瑰與蝴蝶蘭・雙層花架",
+            "width": 1027,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "O009",
+        "title": "紅粉綜合花架・酒紅網紗",
+        "description": "紅色與粉色綜合花材搭配酒紅色網紗，可參考紅粉花面與深色裝飾的對比。",
+        "kind": "作品照片",
+        "photos": [
+          {
+            "src": "/images/gallery/2026/o009.webp",
+            "full": "/images/gallery/2026/o009.webp",
+            "alt": "紅粉綜合花架・酒紅網紗",
+            "width": 960,
+            "height": 1280
+          }
+        ]
+      }
+    ]
   }
 ]

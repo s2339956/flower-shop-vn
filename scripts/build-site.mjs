@@ -558,7 +558,8 @@ async function main() {
     content = content.replace(/<article class="faq-item">\s*<button class="faq-question"[^>]*>([\s\S]*?)<\/button>\s*<div class="faq-answer" hidden>([\s\S]*?)<\/div>\s*<\/article>/g,
       (_match, question, answer) => `<details class="faq-item"><summary class="faq-question">${question.replace('class="faq-icon"', 'class="faq-icon" aria-hidden="true"')}</summary><div class="faq-answer">${answer}</div></details>`);
     if (PAGE_DATES[route]) content = content.replace(/(<p class="updated-at">)最後更新：[^<]+/, `$1最後更新：${PAGE_DATES[route]}`);
-    if (route === "/contact/") content = content.replace(/data-work-codes="[^"]*"/, `data-work-codes="${workCodes.join(",")}"`);
+    // body 與詢價 textarea 共用作品白名單，新增作品時兩處都必須同步。
+    if (route === "/contact/") content = content.replace(/data-work-codes="[^"]*"/g, `data-work-codes="${workCodes.join(",")}"`);
     content = normalizeMetadata(responsiveImages(content, route), route);
     const normalized = normalizeSiteShell(content, route);
     if (

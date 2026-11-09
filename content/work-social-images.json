@@ -580,5 +580,59 @@
     "width": 900,
     "height": 1200,
     "source": "/images/gallery/2026/f012.webp"
+  },
+  "O001": {
+    "src": "/images/social/work-o001-1e751f079853.jpg",
+    "width": 392,
+    "height": 685,
+    "source": "/images/gallery/2026/o001.webp"
+  },
+  "O002": {
+    "src": "/images/social/work-o002-afb99656becf.jpg",
+    "width": 331,
+    "height": 645,
+    "source": "/images/gallery/2026/o002.webp"
+  },
+  "O003": {
+    "src": "/images/social/work-o003-a8991004860f.jpg",
+    "width": 313,
+    "height": 645,
+    "source": "/images/gallery/2026/o003.webp"
+  },
+  "O004": {
+    "src": "/images/social/work-o004-87c5067dbe05.jpg",
+    "width": 810,
+    "height": 1080,
+    "source": "/images/gallery/2026/o004.webp"
+  },
+  "O005": {
+    "src": "/images/social/work-o005-dfcc18e1dcb8.jpg",
+    "width": 789,
+    "height": 1200,
+    "source": "/images/gallery/2026/o005.webp"
+  },
+  "O006": {
+    "src": "/images/social/work-o006-03c07890d748.jpg",
+    "width": 961,
+    "height": 1200,
+    "source": "/images/gallery/2026/o006.webp"
+  },
+  "O007": {
+    "src": "/images/social/work-o007-35426bab9425.jpg",
+    "width": 900,
+    "height": 1200,
+    "source": "/images/gallery/2026/o007.webp"
+  },
+  "O008": {
+    "src": "/images/social/work-o008-a808ebbdbd8f.jpg",
+    "width": 963,
+    "height": 1200,
+    "source": "/images/gallery/2026/o008.webp"
+  },
+  "O009": {
+    "src": "/images/social/work-o009-045df4f27538.jpg",
+    "width": 900,
+    "height": 1200,
+    "source": "/images/gallery/2026/o009.webp"
   }
 }

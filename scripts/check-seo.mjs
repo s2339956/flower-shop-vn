@@ -112,6 +112,15 @@ for (const relativePath of [
 
 // 檢查完整資產引用與已審閱清單，防止原圖、WebP、分享圖或影片重新混入。
 const reviewedPhotos = new Set([
+  "/images/gallery/2026/o001.webp",
+  "/images/gallery/2026/o002.webp",
+  "/images/gallery/2026/o003.webp",
+  "/images/gallery/2026/o004.webp",
+  "/images/gallery/2026/o005.webp",
+  "/images/gallery/2026/o006.webp",
+  "/images/gallery/2026/o007.webp",
+  "/images/gallery/2026/o008.webp",
+  "/images/gallery/2026/o009.webp",
   "/images/gallery/2026/r047.webp",
   "/images/gallery/2026/r046.webp",
   "/images/gallery/2026/r045.webp",
@@ -252,6 +261,9 @@ for (const relativePath of ["services/funeral-flowers-vietnam/index.html", "serv
   assert.match(html, /class="info-panel"/, `${relativePath} 必須提供訂購資訊`);
   assert.doesNotMatch(html, /<img\b/, `${relativePath} 不得用其他用途的作品照片代替`);
 }
+
+// 開幕服務入口須直接連到對應作品分類，避免使用者回到全部作品重新尋找。
+assert.match(await readFile(path.join(ROOT, "services/opening-stand-vietnam/index.html"), "utf8"), /href="\/gallery\/#opening-stands"/, "開幕服務頁缺少開幕花架作品連結");
 
 // Cloudflare Pages 會自動使用根目錄 404.html；錯誤頁不得進入搜尋索引。
 const notFound = await readFile(path.join(ROOT, "404.html"), "utf8");
